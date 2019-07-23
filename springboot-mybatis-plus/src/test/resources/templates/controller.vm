@@ -22,7 +22,7 @@ import ${superControllerClassPackage};
 class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
 #else
 #if(${superControllerClass})
-public class ${table.controllerName} extends ${superControllerClass} {
+public class ${table.controllerName} extends ${superControllerClass}<${table.serviceName}, ${entity}> {
 #else
 public class ${table.controllerName} {
 #end

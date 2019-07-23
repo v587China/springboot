@@ -4,8 +4,7 @@ package ${package.Entity};
 import ${pkg};
 #end
 #if(${entityLombokModel})
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 #end
 
@@ -14,12 +13,13 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(value ="$!{table.comment}")
 #if(${entityLombokModel})
-#if(${superEntityClass})
-@EqualsAndHashCode(callSuper = true)
-#else
-@EqualsAndHashCode(callSuper = false)
-#end
-@Accessors(chain = true)
+## #if(${superEntityClass})
+## @EqualsAndHashCode(callSuper = true)
+## #else
+## @EqualsAndHashCode(callSuper = false)
+## #end
+@Accessors
+@ToString
 #end
 #if(${table.convert})
 @TableName("${table.name}")

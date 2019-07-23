@@ -20,7 +20,7 @@ public class GeneratorServiceEntity {
     private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://localhost:3306/springboot";
     private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "fan123";
+    private static final String DB_PASSWORD = "root";
     private static final String TABLE_PREFIX = "spring_";
     private static final String[] TABLES = { "spring_user" };
 
@@ -30,6 +30,7 @@ public class GeneratorServiceEntity {
     private static final String PACKAGE_NAME = "com.ultra";
     private static final String ENTITY_VM = "/templates/entity.vm";
     private static final String CONTROLLER_VM = "/templates/controller.vm";
+    private static final String SUPER_CONTROLLER_CLASS = "com.ultra.web.BaseController";
     // user -> UserService, 设置成true: user -> IUserService
     private static final boolean SERVICE_NAME_START_WITH_I = false;
 
@@ -65,12 +66,12 @@ public class GeneratorServiceEntity {
      * @return
      */
     private PackageConfig initPackageConfig() {
-        return new PackageConfig().setParent(PACKAGE_NAME).setController("controller").setService("service")
+        return new PackageConfig().setParent(PACKAGE_NAME).setController("web").setService("service")
                 .setServiceImpl("service.impl").setMapper("dao").setXml("mapper").setEntity("dao.entity");
     }
 
     /**
-     * 输出配置
+     * mapperxml输出配置
      *
      * @return
      */
@@ -85,7 +86,7 @@ public class GeneratorServiceEntity {
     }
 
     /**
-     * 数据库表配置
+     * 数据库表转对象策略配置
      *
      * @return
      */
@@ -93,7 +94,8 @@ public class GeneratorServiceEntity {
         StrategyConfig strategyConfig = new StrategyConfig();
         strategyConfig.setCapitalMode(true).setEntityLombokModel(true).setDbColumnUnderline(true)
                 .setRestControllerStyle(true).entityTableFieldAnnotationEnable(false).setTablePrefix(TABLE_PREFIX)
-                .setNaming(NamingStrategy.underline_to_camel).setInclude(TABLES);
+                .setNaming(NamingStrategy.underline_to_camel).setInclude(TABLES)
+                .setSuperControllerClass(SUPER_CONTROLLER_CLASS);
         return strategyConfig;
     }
 

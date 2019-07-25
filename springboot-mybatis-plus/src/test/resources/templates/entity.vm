@@ -5,7 +5,8 @@ import ${pkg};
 #end
 #if(${entityLombokModel})
 import lombok.ToString;
-import lombok.experimental.Accessors;
+import lombok.Getter;
+import lombok.Setter;
 #end
 
 import io.swagger.annotations.ApiModel;
@@ -18,7 +19,8 @@ import io.swagger.annotations.ApiModelProperty;
 ## #else
 ## @EqualsAndHashCode(callSuper = false)
 ## #end
-@Accessors
+@Setter
+@Getter
 @ToString
 #end
 #if(${table.convert})

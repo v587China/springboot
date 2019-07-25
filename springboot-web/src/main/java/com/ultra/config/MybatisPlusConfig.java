@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 @Configuration
 @MapperScan("com.ultra.dao")
 public class MybatisPlusConfig {
+
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();

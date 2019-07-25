@@ -3,17 +3,19 @@ package com.ultra.web;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
-import com.ultra.common.Result;
-import com.ultra.common.ResultBuilder;
 
 public abstract class BaseController<M extends IService<T>, T> {
 
+    @Autowired
     protected M baseService;
+    @Autowired
+    protected MessageSource messageSource;
 
     /**
      * 查询
@@ -21,14 +23,12 @@ public abstract class BaseController<M extends IService<T>, T> {
      * @param id
      * @return
      */
-    protected ResponseEntity<Result> selectById(Serializable id) {
-        T t = baseService.selectById(id);
-        return ResponseEntity.ok(ResultBuilder.ok(t));
+    protected T selectById(Serializable id) {
+        return baseService.selectById(id);
     }
 
-    protected ResponseEntity<Result> selectList(Wrapper<T> wrapper) {
-        List<T> list = baseService.selectList(wrapper);
-        return ResponseEntity.ok(ResultBuilder.ok(list));
+    protected List<T> selectList(Wrapper<T> wrapper) {
+        return baseService.selectList(wrapper);
     }
 
     /**
@@ -38,13 +38,12 @@ public abstract class BaseController<M extends IService<T>, T> {
      * @param page
      * @return
      */
-    protected ResponseEntity<Result> selectPage(Page<T> page) {
+    protected Page<T> selectPage(Page<T> page) {
         return selectPage(page, null);
     }
 
-    protected ResponseEntity<Result> selectPage(Page<T> page, Wrapper<T> wrapper) {
-        page = baseService.selectPage(page, wrapper);
-        return ResponseEntity.ok(ResultBuilder.ok(page));
+    protected Page<T> selectPage(Page<T> page, Wrapper<T> wrapper) {
+        return baseService.selectPage(page, wrapper);
     }
 
     /**
@@ -53,14 +52,12 @@ public abstract class BaseController<M extends IService<T>, T> {
      * @param t
      * @return
      */
-    public ResponseEntity<Result> insert(T t) {
-        baseService.insert(t);
-        return ResponseEntity.ok(ResultBuilder.ok());
+    public boolean insert(T t) {
+        return baseService.insert(t);
     }
 
-    protected ResponseEntity<Result> insertBatch(List<T> list) {
-        baseService.insertBatch(list);
-        return ResponseEntity.ok(ResultBuilder.ok());
+    protected boolean insertBatch(List<T> list) {
+        return baseService.insertBatch(list);
     }
 
     /**
@@ -70,14 +67,12 @@ public abstract class BaseController<M extends IService<T>, T> {
      * @param t
      * @return
      */
-    protected ResponseEntity<Result> updateById(T t) {
-        baseService.updateById(t);
-        return ResponseEntity.ok(ResultBuilder.ok());
+    protected boolean updateById(T t) {
+        return baseService.updateById(t);
     }
 
-    protected ResponseEntity<Result> updateBatchById(List<T> list) {
-        baseService.updateBatchById(list);
-        return ResponseEntity.ok(ResultBuilder.ok());
+    protected boolean updateBatchById(List<T> list) {
+        return baseService.updateBatchById(list);
     }
 
     /**
@@ -87,16 +82,14 @@ public abstract class BaseController<M extends IService<T>, T> {
      * @param id
      * @return
      */
-    protected ResponseEntity<Result> deleteById(Serializable id) {
-        baseService.deleteById(id);
-        return ResponseEntity.ok(ResultBuilder.ok());
+    protected boolean deleteById(Serializable id) {
+        return baseService.deleteById(id);
     }
 
-    protected ResponseEntity<Result> deleteBatchIds(List<? extends Serializable> ids) {
+    protected boolean deleteBatchSeriIds(List<? extends Serializable> ids) {
         if (ids.size() == 1) {
             return deleteById(ids.get(0));
         }
-        baseService.deleteBatchIds(ids);
-        return ResponseEntity.ok(ResultBuilder.ok());
+        return baseService.deleteBatchIds(ids);
     }
 }

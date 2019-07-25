@@ -71,6 +71,6 @@
 		<module>springboot-web</module>
 		<module>springboot-mybatis-plus</module>
 		<module>springboot-common</module>
-		<module>springboot-jpa</module>
+		
 	</modules>
 </project>

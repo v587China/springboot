@@ -1,5 +1,7 @@
 package com.ultra.validated;
 
-public interface InsertGroup {
+import javax.validation.groups.Default;
+
+public interface InsertGroup extends Default {
 
 }

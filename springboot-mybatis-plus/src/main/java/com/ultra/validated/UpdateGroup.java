@@ -1,5 +1,7 @@
 package com.ultra.validated;
 
-public interface UpdateGroup {
+import javax.validation.groups.Default;
+
+public interface UpdateGroup extends Default {
 
 }

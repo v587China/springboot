@@ -3,9 +3,11 @@ package com.ultra.web;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 
+import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
@@ -91,5 +93,29 @@ public abstract class BaseController<M extends IService<T>, T> {
             return deleteById(ids.get(0));
         }
         return baseService.deleteBatchIds(ids);
+    }
+
+    /**
+     * 
+     * 封装搜索条件
+     *
+     * @param searchColumnS
+     * @param search
+     * @return
+     */
+    protected Wrapper<?> setSearch(String searchColumnS, String search) {
+        Wrapper<?> wrapper = null;
+        if (StringUtils.isNotBlank(search) && StringUtils.isNotBlank(searchColumnS)) {
+            wrapper = new Condition();
+            String[] fields = searchColumnS.split(",");
+            int length = fields.length;
+            for (int i = 0; i < length; i++) {
+                wrapper = wrapper.like(fields[i], search);
+                if (i < length - 1) {
+                    wrapper = wrapper.or();
+                }
+            }
+        }
+        return wrapper;
     }
 }

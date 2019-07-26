@@ -11,6 +11,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class WebLog {
+
     /**
      * 操作描述
      */

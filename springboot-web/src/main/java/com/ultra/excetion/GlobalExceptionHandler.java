@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.ultra.common.Error;
 import com.ultra.common.ErrorBuilder;
-import com.ultra.common.ErrorType;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -19,13 +18,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Error illegalArguementException(IllegalArgumentException exception) {
-        return ErrorBuilder.build(ErrorType.FIELD_ILLEAGAL.getCode(), exception.getMessage());
+        return ErrorBuilder.buildBad(exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Error Exception(Exception exception) {
         logger.error("", exception);
-        return ErrorBuilder.build(ErrorType.SERVER_ERROR.getCode(), exception.getMessage());
+        return ErrorBuilder.buildError(exception.getMessage());
     }
 }

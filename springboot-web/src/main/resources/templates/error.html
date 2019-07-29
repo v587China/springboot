@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Oops!</title>
+<link rel="stylesheet" th:href="@{/style.css}"></link>
+</head>
+<div class="errorPage">
+	<span class="oops">Oops!</span><br /> <img
+		th:src="@{/MissingPage.png}"></img>
+	<p th:text="${'Message: ' + message}"></p>
+	<p th:text="${'Timestamp: ' + timestamp}"></p>
+	<p th:text="${'Status: ' + status}"></p>
+	<p th:text="${'error: ' + error}"></p>
+	<p th:text="${'Exception: ' + exception}"></p>
+	<p th:text="${'Errors: ' + errors}"></p>
+	<p th:text="${'Trace: ' + trace}"></p>
+	<p th:text="${'Path: ' + path}"></p>
+</div>
+</html>

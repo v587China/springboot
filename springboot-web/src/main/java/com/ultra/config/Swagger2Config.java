@@ -1,11 +1,13 @@
 package com.ultra.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
+import com.ultra.bo.Swagger2;
 
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -20,6 +22,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Swagger2Config {
 
+    @Autowired
+    private Swagger2 swagger2;
+
     @Bean
     public Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())// 调用apiInfo方法,创建一个ApiInfo实例,里面是展示在文档页面信息内容
@@ -27,7 +32,7 @@ public class Swagger2Config {
                 // 控制暴露出去的路径下的实例
                 // 如果某个接口不想暴露,可以使用以下注解
                 // @ApiIgnore 这样,该接口就不会暴露在 swagger2 的页面下
-                .apis(basePackage("com.ultra.web,com.ultra.openapi")).paths(PathSelectors.any()).build();
+                .apis(basePackage(swagger2.getBasePackage())).paths(PathSelectors.any()).build();
     }
 
     public static Predicate<RequestHandler> basePackage(final String basePackage) {
@@ -66,8 +71,9 @@ public class Swagger2Config {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Springboot API").description("This is a springboot API")
+        return new ApiInfoBuilder().title(swagger2.getTitle()).description(swagger2.getDescription())
                 .license("Apache 2.0").licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-                .termsOfServiceUrl("").version("1.0.0").contact(new Contact("", "", "you@your-company.com")).build();
+                .termsOfServiceUrl("").version(swagger2.getVersion())
+                .contact(new Contact(swagger2.getName(), swagger2.getUrl(), swagger2.getEmail())).build();
     }
 }

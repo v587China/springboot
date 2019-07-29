@@ -38,6 +38,14 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -74,8 +82,8 @@
 
 	<packaging>pom</packaging>
 	<modules>
-		<module>springboot-freemarker</module>
-		<module>springboot-thymeleaf</module>
+
+
 		<module>springboot-web</module>
 		<module>springboot-mybatis-plus</module>
 		<module>springboot-common</module>

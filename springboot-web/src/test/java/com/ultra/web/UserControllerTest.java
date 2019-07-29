@@ -41,8 +41,12 @@ public class UserControllerTest {
 
     @Test
     public void testSelectList() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/list")).andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name(""));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/list")).andExpect(MockMvcResultMatchers.status().isOk());
+        // .andExpect(MockMvcResultMatchers.view().name(""))
+        // .andExpect(MockMvcResultMatchers.model().attributeExists("books"))
+        // .andExpect(MockMvcResultMatchers.model().attribute("books",
+        // Matchers.isA(Matchers.isNull())))
     }
 
     @Test

@@ -25,7 +25,7 @@ import com.ultra.validated.UpdateGroup;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = { "用户表" })
+@Api(tags = { "用户" })
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController<UserService, User> {

@@ -3,22 +3,22 @@ package com.ultra;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
-import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
-public class GeneratorServiceEntity {
+public class ClassGenerator {
 
     /**
      * 数据库配置
      */
-    private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/springboot";
+    private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/springboot?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC";
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "root";
     private static final String TABLE_PREFIX = "spring_";
@@ -28,9 +28,9 @@ public class GeneratorServiceEntity {
      * 模板风格
      */
     private static final String PACKAGE_NAME = "com.ultra";
-    private static final String ENTITY_VM = "/templates/entity.vm";
-    private static final String CONTROLLER_VM = "/templates/controller.vm";
-    private static final String SUPER_CONTROLLER_CLASS = "com.ultra.web.BaseController";
+    private static final String ENTITY_VM = "/templates/entity.java.vm";
+    private static final String CONTROLLER_VM = "/templates/controller.java.vm";
+    private static final String SUPERD_CONTROLLER_CLASS = "com.ultra.web.BaseController";
     // user -> UserService, 设置成true: user -> IUserService
     private static final boolean SERVICE_NAME_START_WITH_I = false;
 
@@ -48,6 +48,12 @@ public class GeneratorServiceEntity {
                 .setPackageInfo(packageConfig).setTemplate(templateConfig).execute();
     }
 
+    /**
+     * 
+     * 模板设置
+     *
+     * @return
+     */
     private TemplateConfig initTemplateConfig() {
         TemplateConfig templateConfig = new TemplateConfig();
         if (StringUtils.isNotBlank(ENTITY_VM)) {
@@ -78,7 +84,7 @@ public class GeneratorServiceEntity {
     private GlobalConfig initGlobalConfig() {
         GlobalConfig config = new GlobalConfig();
         config.setActiveRecord(false).setEnableCache(false).setOutputDir(CODE_OUTPUT_DIR).setFileOverride(true)
-                .setBaseResultMap(true).setBaseColumnList(true);
+                .setSwagger2(true).setBaseResultMap(true).setBaseColumnList(true);
         if (!SERVICE_NAME_START_WITH_I) {
             config.setServiceName("%sService");
         }
@@ -92,10 +98,10 @@ public class GeneratorServiceEntity {
      */
     private StrategyConfig initStrategyConfig() {
         StrategyConfig strategyConfig = new StrategyConfig();
-        strategyConfig.setCapitalMode(true).setEntityLombokModel(true).setDbColumnUnderline(true)
-                .setRestControllerStyle(true).entityTableFieldAnnotationEnable(false).setTablePrefix(TABLE_PREFIX)
-                .setNaming(NamingStrategy.underline_to_camel).setInclude(TABLES)
-                .setSuperControllerClass(SUPER_CONTROLLER_CLASS);
+        strategyConfig.setCapitalMode(true).setEntityLombokModel(true).setRestControllerStyle(true)
+                .setTablePrefix(TABLE_PREFIX).setNaming(NamingStrategy.underline_to_camel)
+                .setColumnNaming(NamingStrategy.underline_to_camel).setInclude(TABLES)
+                .setSuperControllerClass(SUPERD_CONTROLLER_CLASS);
         return strategyConfig;
     }
 

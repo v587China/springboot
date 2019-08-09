@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 public class PageUtil {
     private final static Logger logger = LoggerFactory.getLogger(PageUtil.class);
@@ -37,11 +37,8 @@ public class PageUtil {
         Page<T> page = new Page<T>();
         String noStr = request.getParameter("pageNo");
         String sizeStr = request.getParameter("size");
-        String order = request.getParameter("order");
-        String isAscStr = request.getParameter("isAsc");
         int pageNo = 1;
         int size = 10;
-        boolean isAsc = true;
         if (StringUtils.isNotBlank(noStr)) {
             try {
                 pageNo = Integer.parseInt(noStr);
@@ -56,28 +53,7 @@ public class PageUtil {
                 logger.error("", e);
             }
         }
-        if (StringUtils.isNotBlank(order)) {
-            if (StringUtils.isNotBlank(alias)) {
-                page.setOrderByField(alias + order);
-            } else {
-                page.setOrderByField(order);
-            }
-            if (StringUtils.isNotBlank(isAscStr)) {
-                try {
-                    isAsc = "true".equals(isAscStr);
-                } catch (Exception e) {
-                    logger.error("", e);
-                }
-                page.setAsc(isAsc);
-            }
-        } else {
-            if (StringUtils.isNotBlank(alias)) {
-                page.setOrderByField(alias + "id");
-            } else {
-                page.setOrderByField("id");
-            }
-            page.setAsc(false);
-        }
+        // TODO 排序
         page.setCurrent(pageNo);
         page.setSize(size);
         return page;

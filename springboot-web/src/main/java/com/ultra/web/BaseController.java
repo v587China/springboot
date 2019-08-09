@@ -7,10 +7,10 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 
-import com.baomidou.mybatisplus.mapper.Condition;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.IService;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 public abstract class BaseController<M extends IService<T>, T> {
 
@@ -25,12 +25,12 @@ public abstract class BaseController<M extends IService<T>, T> {
      * @param id
      * @return
      */
-    protected T selectById(Serializable id) {
-        return baseService.selectById(id);
+    protected T getById(Serializable id) {
+        return baseService.getById(id);
     }
 
-    protected List<T> selectList(Wrapper<T> wrapper) {
-        return baseService.selectList(wrapper);
+    protected List<T> list(Wrapper<T> wrapper) {
+        return baseService.list(wrapper);
     }
 
     /**
@@ -40,12 +40,12 @@ public abstract class BaseController<M extends IService<T>, T> {
      * @param page
      * @return
      */
-    protected Page<T> selectPage(Page<T> page) {
-        return selectPage(page, null);
+    protected IPage<T> page(IPage<T> page) {
+        return page(page, null);
     }
 
-    protected Page<T> selectPage(Page<T> page, Wrapper<T> wrapper) {
-        return baseService.selectPage(page, wrapper);
+    protected IPage<T> page(IPage<T> page, Wrapper<T> wrapper) {
+        return baseService.page(page, wrapper);
     }
 
     /**
@@ -54,12 +54,12 @@ public abstract class BaseController<M extends IService<T>, T> {
      * @param t
      * @return
      */
-    public boolean insert(T t) {
-        return baseService.insert(t);
+    public boolean save(T t) {
+        return baseService.save(t);
     }
 
-    protected boolean insertBatch(List<T> list) {
-        return baseService.insertBatch(list);
+    protected boolean saveBatch(List<T> list) {
+        return baseService.saveBatch(list);
     }
 
     /**
@@ -84,15 +84,15 @@ public abstract class BaseController<M extends IService<T>, T> {
      * @param id
      * @return
      */
-    protected boolean deleteById(Serializable id) {
-        return baseService.deleteById(id);
+    protected boolean removeById(Serializable id) {
+        return baseService.removeById(id);
     }
 
-    protected boolean deleteBatchSeriIds(List<? extends Serializable> ids) {
+    protected boolean removeByIds(List<? extends Serializable> ids) {
         if (ids.size() == 1) {
-            return deleteById(ids.get(0));
+            return removeById(ids.get(0));
         }
-        return baseService.deleteBatchIds(ids);
+        return baseService.removeByIds(ids);
     }
 
     /**
@@ -103,14 +103,14 @@ public abstract class BaseController<M extends IService<T>, T> {
      * @param search
      * @return
      */
-    protected Wrapper<?> setSearch(String searchColumnS, String search) {
-        Wrapper<?> wrapper = null;
+    protected QueryWrapper<T> setSearch(String searchColumnS, String search) {
+        QueryWrapper<T> wrapper = null;
         if (StringUtils.isNotBlank(search) && StringUtils.isNotBlank(searchColumnS)) {
-            wrapper = new Condition();
-            String[] fields = searchColumnS.split(",");
-            int length = fields.length;
+            wrapper = new QueryWrapper<>();
+            String[] columns = searchColumnS.split(",");
+            int length = columns.length;
             for (int i = 0; i < length; i++) {
-                wrapper = wrapper.like(fields[i], search);
+                wrapper = wrapper.like(columns[i], search);
                 if (i < length - 1) {
                     wrapper = wrapper.or();
                 }

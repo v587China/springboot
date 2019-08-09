@@ -1,7 +1,7 @@
 package com.ultra.dao;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.ultra.dao.entity.User;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.ultra.dao.entity.User;
  * </p>
  *
  * @author ${author}
- * @since 2019-07-23
+ * @since 2019-08-08
  */
 public interface UserMapper extends BaseMapper<User> {
 

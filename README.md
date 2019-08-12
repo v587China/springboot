@@ -7,3 +7,5 @@ entity中属性校验未实现自动生成(因mybatis-plus,不支持读取是否
 controller中常用的增删改查实现自动生成
 
 #springboot-web:controller,config,aspect,exception
+
+##未实现:①不可修改的参数怎么处理②参数防篡改

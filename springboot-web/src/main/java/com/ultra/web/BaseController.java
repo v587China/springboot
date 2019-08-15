@@ -1,16 +1,15 @@
 package com.ultra.web;
 
-import java.io.Serializable;
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+
+import java.io.Serializable;
+import java.util.List;
 
 public abstract class BaseController<M extends IService<T>, T> {
 
@@ -34,7 +33,6 @@ public abstract class BaseController<M extends IService<T>, T> {
     }
 
     /**
-     * 
      * 分页
      *
      * @param page
@@ -50,7 +48,7 @@ public abstract class BaseController<M extends IService<T>, T> {
 
     /**
      * 新增
-     * 
+     *
      * @param t
      * @return
      */
@@ -63,7 +61,6 @@ public abstract class BaseController<M extends IService<T>, T> {
     }
 
     /**
-     * 
      * 根据主键修改
      *
      * @param t
@@ -78,7 +75,6 @@ public abstract class BaseController<M extends IService<T>, T> {
     }
 
     /**
-     * 
      * 根据主键删除
      *
      * @param id
@@ -96,7 +92,6 @@ public abstract class BaseController<M extends IService<T>, T> {
     }
 
     /**
-     * 
      * 封装搜索条件
      *
      * @param searchColumnS

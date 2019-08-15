@@ -1,30 +1,20 @@
 package com.ultra.web;
 
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.util.Assert;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ultra.dao.entity.User;
 import com.ultra.service.UserService;
 import com.ultra.validated.UpdateGroup;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.util.Assert;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -34,7 +24,7 @@ import io.swagger.annotations.ApiOperation;
  * @author ${author}
  * @since 2019-08-09
  */
-@Api(tags = { "用户表" })
+@Api(tags = {"用户表"})
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController<UserService, User> {
@@ -55,10 +45,10 @@ public class UserController extends BaseController<UserService, User> {
     @ApiOperation(value = "分页搜索查询")
     @GetMapping("/page")
     public IPage<User> page(@RequestParam(defaultValue = "1", required = false) int current,
-            @RequestParam(defaultValue = "10", required = false) int size,
-            @RequestParam(required = false) String[] descs, @RequestParam(required = false) String[] ascs,
-            @RequestParam(required = false) String search) {
-        Page<User> page = new Page<User>(current, size);
+                            @RequestParam(defaultValue = "10", required = false) int size,
+                            @RequestParam(required = false) String[] descs, @RequestParam(required = false) String[] ascs,
+                            @RequestParam(required = false) String search) {
+        Page<User> page = new Page<>(current, size);
         page.setAsc(ascs);
         page.setDesc(descs);
         QueryWrapper<User> wrapper = null;
@@ -76,7 +66,7 @@ public class UserController extends BaseController<UserService, User> {
 
     @ApiOperation(value = "更新")
     @PutMapping
-    public boolean updateById(@Validated({ UpdateGroup.class }) @RequestBody User entity, Errors errors) {
+    public boolean updateById(@Validated({UpdateGroup.class}) @RequestBody User entity, Errors errors) {
         return super.updateById(entity);
     }
 

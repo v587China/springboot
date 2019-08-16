@@ -55,6 +55,11 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.38.Final</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
@@ -125,7 +130,7 @@
         <module>springboot-web</module>
         <module>springboot-common</module>
         <module>springboot-mybatis-plus</module>
-        <module>springboot-solr</module>
+        <module>springboot-netty</module>
     </modules>
 
 </project>

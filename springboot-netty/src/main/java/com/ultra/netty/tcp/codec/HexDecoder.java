@@ -9,25 +9,22 @@ import java.util.List;
 public class HexDecoder extends ByteToMessageDecoder {
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        //创建字节数组,buffer.readableBytes可读字节长度
-        byte[] b = new byte[in.readableBytes()];
-        //复制内容到字节数组b
-        in.readBytes(b);
-        //字节数组转字符串
-        //String str = new String(b);
-        out.add(bytesToHexString(b));
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
+        if (in != null) {
+            //创建字节数组,buffer.readableBytes可读字节长度
+            byte[] b = new byte[in.readableBytes()];
+            in.readBytes(b);
+            out.add(bytesToHexString(b));
+        }
     }
 
     private String bytesToHexString(byte[] bytes) {
-        StringBuffer sb = new StringBuffer(bytes.length);
-        String sTemp;
-        for (int i = 0; i < bytes.length; i++) {
-            sTemp = Integer.toHexString(0xFF & bytes[i]);
-            if (sTemp.length() < 2)
-                sb.append(0);
-            sb.append(sTemp.toUpperCase());
+        StringBuffer sb = new StringBuffer();
+        for (byte t : bytes) {
+            if ((t & 0xF0) == 0) sb.append("0");
+            sb.append(Integer.toHexString(t & 0xFF));
+            //t & 0xFF 操作是为去除Integer高位多余的符号位（java数据是用补码表示）
         }
-        return sb.toString();
+        return sb.toString().toUpperCase();
     }
 }

@@ -21,9 +21,9 @@ public class TcpClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TcpClient.class);
 
-    @Value(("${netty.tcp.server.host}"))
+    @Value(("${tcp.server.host}"))
     private String host;
-    @Value("${netty.tcp.server.port}")
+    @Value("${tcp.server.port}")
     private int port;
     @Autowired
     private ClientChannelInitializer clientChannelInitializer;

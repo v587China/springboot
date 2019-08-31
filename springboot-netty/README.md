@@ -1,3 +1,14 @@
+**TCP/IP协议**
+
+`TCP/IP是个协议组，可分为四个层次：网络接口层、网络层、传输层和应用层。`
+
+   - `网络层有IP协议、ICMP协议、ARP协议、RARP协议和BOOTP协议`
+   - `传输层中有TCP协议与UDP协议`
+   - `应用层有HTTP,FTP、TELNET、SMTP、DNS等协议`
+
+`socket只是一种连接模式，不是协议，socket是对TCP/IP协议的封装，Socket本身并不是协议，而是一个调用接口`
+
+
 **Decoders(解码器)**
 
 `ByteToMessageDecoder:把字节解码为消息`

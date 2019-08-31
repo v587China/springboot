@@ -1,7 +1,10 @@
 package com.ultra.netty.tcp.client;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoop;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.slf4j.Logger;
@@ -24,8 +27,6 @@ public class TcpClient {
     private int port;
     @Autowired
     private ClientChannelInitializer clientChannelInitializer;
-    @Autowired
-    private ClientChannelHandler clientChannelHandler;
 
     // 通过nio方式来接收连接和处理连接
     private EventLoopGroup group = new NioEventLoopGroup();
@@ -35,38 +36,38 @@ public class TcpClient {
      */
     @PostConstruct
     public void run() {
-       new Thread(() -> {
-           reConnect(group);
-       },"Tcp Client init").start();
+        new Thread(() -> {
+            reConnect(group);
+        }, "Tcp Client").start();
     }
 
     /**
      * 建立连接,获取连接通道对象,重连机制
-     * @param eventLoopGroup
      */
-    public void reConnect(EventLoopGroup eventLoopGroup) {
+    void reConnect(EventLoopGroup group) {
+        LOGGER.info("reConnect:" + group.hashCode());
         Bootstrap bootstrap = new Bootstrap();
         try {
-            if (bootstrap != null) {
-                bootstrap.group(eventLoopGroup);
-                bootstrap.channel(NioSocketChannel.class);
-                bootstrap.option(ChannelOption.SO_KEEPALIVE, true);
-                bootstrap.handler(clientChannelInitializer);
-                bootstrap.remoteAddress(host, port);
-                ChannelFuture channelFuture = bootstrap.connect().addListener((ChannelFuture futureListener) -> {
+            bootstrap.group(group);
+            bootstrap.channel(NioSocketChannel.class);
+            bootstrap.option(ChannelOption.SO_KEEPALIVE, true);
+            bootstrap.handler(clientChannelInitializer);
+            bootstrap.remoteAddress(host, port);
+            // 阻塞式/同步放开
+            //ChannelFuture channelFuture =
+            bootstrap.connect().addListener((ChannelFuture futureListener) -> {
+                if (!futureListener.isSuccess()) {
                     final EventLoop eventLoop = futureListener.channel().eventLoop();
-                    if (!futureListener.isSuccess()) {
-                        LOGGER.info("与服务端断开连接!在10s之后准备尝试重连!");
-                        eventLoop.schedule(() -> reConnect(eventLoop), 10, TimeUnit.SECONDS);
-                    }else {
-                        LOGGER.info("Netty客户端启动成功!");
-                    }
-                });
-                // 阻塞
-                //channelFuture.channel().closeFuture().sync();
-            }
+                    LOGGER.info("与服务端断开连接!在10s之后准备尝试重连!");
+                    eventLoop.schedule(() -> reConnect(group), 10, TimeUnit.SECONDS);
+                } else {
+                    LOGGER.info("Netty客户端启动成功!");
+                }
+            });
+            // 阻塞/同步
+            //channelFuture.channel().closeFuture().sync();
         } catch (Exception e) {
-            LOGGER.error("客户端连接失败!",e.getMessage());
+            LOGGER.error("客户端连接失败!", e);
         }
     }
 

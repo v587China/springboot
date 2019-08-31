@@ -2,7 +2,6 @@ package com.ultra.web;
 
 import com.ultra.excetion.TcpToServerException;
 import com.ultra.netty.tcp.client.ClientChannelHandler;
-import com.ultra.netty.tcp.client.TcpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -18,12 +18,13 @@ public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
     @Autowired
     private TcpClient tcpClient;
     private ChannelHandlerContext ctx;
+
     /**
      * 建立连接时
      */
     @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        this.ctx=ctx;
+    public void channelActive(ChannelHandlerContext ctx) {
+        this.ctx = ctx;
         ctx.fireChannelActive();
     }
 
@@ -33,6 +34,7 @@ public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         final EventLoop eventLoop = ctx.channel().eventLoop();
+        LOGGER.info("channelInactive:" + eventLoop.hashCode());
         tcpClient.reConnect(eventLoop);
         super.channelInactive(ctx);
     }
@@ -40,7 +42,6 @@ public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
     /**
      * 心跳请求处理
      * 每4秒发送一次心跳请求;
-     *
      */
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object obj) throws Exception {
@@ -63,13 +64,15 @@ public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
      * 接收消息
      */
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        LOGGER.info("receive message from server : {}",msg);
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        String result = (String) msg;
+        LOGGER.info("msg:" + msg);
     }
 
     /**
      * 向服务器发送消息
-     * @param msg
+     *
+     * @param msg 消息
      */
     public void sendMsgToTcpServer(String msg) {
         if (ctx != null) {

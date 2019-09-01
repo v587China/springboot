@@ -1,18 +1,17 @@
-package com.ultra.netty.tcp.client;
+package com.ultra.conditional;
 
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
- * Tcp Server 开关
+ * 关闭
  *
  * @author admin
  */
-public class TcpClientConditional implements Condition {
+public class FalseConditional implements Condition {
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        String open = conditionContext.getEnvironment().getProperty("tcp.server.open", "false");
-        return Boolean.valueOf(open);
+        return false;
     }
 }

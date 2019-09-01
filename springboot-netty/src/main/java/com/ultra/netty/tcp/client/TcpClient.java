@@ -1,5 +1,6 @@
 package com.ultra.netty.tcp.client;
 
+import com.ultra.conditional.TrueConditional;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @author admin
  */
 @Component
+@Conditional(value = TrueConditional.class)
 public class TcpClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TcpClient.class);

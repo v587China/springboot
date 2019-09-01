@@ -12,12 +12,9 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * 
- * @Description: 加载静态资源,swagger-ui,配置静态图片路径,Validator国际化资源文件
- * @author fan
- * @date 2019年7月25日 下午8:03:13
- * 
- * @version 6.0
+ * 加载静态资源,swagger-ui,配置静态图片路径,Validator国际化资源文件
+ *
+ * @author admin
  */
 @Configuration
 public class ResourceConfig implements WebMvcConfigurer {
@@ -52,14 +49,11 @@ public class ResourceConfig implements WebMvcConfigurer {
     @Override
     public Validator getValidator() {
         LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-        try {
-            validator.setValidationMessageSource(getMessageSource());
-        } catch (Exception e) {
-        }
+        validator.setValidationMessageSource(getMessageSource());
         return validator;
     }
 
-    private ResourceBundleMessageSource getMessageSource() throws Exception {
+    private ResourceBundleMessageSource getMessageSource() {
         ResourceBundleMessageSource rbms = new ResourceBundleMessageSource();
         rbms.setDefaultEncoding("UTF-8");
         rbms.setBasenames("i18n/messages");

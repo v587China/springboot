@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
+ * Tcp Client处理器:建立连接,关闭连接,心跳,接收消息,发送消息
+ *
  * @author admin
  */
 @Component

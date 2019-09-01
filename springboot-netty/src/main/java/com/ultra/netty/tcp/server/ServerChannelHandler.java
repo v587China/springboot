@@ -5,20 +5,18 @@ import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 通道通信处理器
+ * Tcp Server处理器:建立连接,关闭连接,心跳,接收消息,发送消息
  *
  * @author admin
  */
 @Component
 @ChannelHandler.Sharable
-@Conditional(value = TcpServerConditional.class)
 public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerChannelHandler.class);
     private Map<ChannelId, Channel> channelMap = new ConcurrentHashMap<>();

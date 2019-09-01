@@ -6,6 +6,11 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 
 import java.util.List;
 
+/**
+ * 十六进制解码器
+ *
+ * @author admin
+ */
 public class HexDecoder extends ByteToMessageDecoder {
 
     @Override
@@ -19,9 +24,11 @@ public class HexDecoder extends ByteToMessageDecoder {
     }
 
     private String bytesToHexString(byte[] bytes) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (byte t : bytes) {
-            if ((t & 0xF0) == 0) sb.append("0");
+            if ((t & 0xF0) == 0) {
+                sb.append("0");
+            }
             sb.append(Integer.toHexString(t & 0xFF));
             //t & 0xFF 操作是为去除Integer高位多余的符号位（java数据是用补码表示）
         }

@@ -1,19 +1,24 @@
 package com.ultra.netty.tcp.server;
 
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelId;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.*;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 通道通信处理器
+ *
+ * @author admin
+ */
 @Component
+@ChannelHandler.Sharable
+@Conditional(value = TcpServerConditional.class)
 public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerChannelHandler.class);
     private Map<ChannelId, Channel> channelMap = new ConcurrentHashMap<>();
@@ -26,6 +31,9 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
         Channel channel = ctx.channel();
         channelMap.put(channel.id(), channel);
         ctx.fireChannelActive();
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("客户端channelId:{}连接", channel.id());
+        }
     }
 
     /**
@@ -34,7 +42,11 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         super.channelInactive(ctx);
-        channelMap.remove(ctx.channel().id());
+        ChannelId id = ctx.channel().id();
+        channelMap.remove(id);
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("客户端channelId:{}断开连接", id);
+        }
     }
 
     /**
@@ -66,14 +78,17 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
     }
 
     /**
-     * 向服务器发送消息
+     * 向客户端发送消息
      *
      * @param msg 消息
      */
     public void sendMsgToTcpServer(String msg) {
         if (!channelMap.isEmpty()) {
-            LOGGER.info("send message to server : {}", msg);
+            LOGGER.info("send message to client:{}", msg);
             channelMap.forEach((channelId, channel) -> {
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("channelId:{}", channelId);
+                }
                 channel.writeAndFlush(msg);
             });
         } else {

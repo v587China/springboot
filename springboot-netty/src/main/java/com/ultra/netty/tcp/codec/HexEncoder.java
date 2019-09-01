@@ -4,6 +4,11 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
+/**
+ * 十六进制编码器
+ *
+ * @author admin
+ */
 public class HexEncoder extends MessageToByteEncoder<Object> {
 
     @Override

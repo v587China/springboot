@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author admin
+ */
 @Component
 @ChannelHandler.Sharable
 public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
@@ -56,7 +59,7 @@ public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
             if (event.state().equals(IdleState.READER_IDLE)) {
                 LOGGER.info("Tcp Client长期没收到服务器推送数据");
             } else if (event.state().equals(IdleState.WRITER_IDLE)) {
-                LOGGER.info("Tcp Client长期未向服务器发送数据");
+                //LOGGER.info("Tcp Client heartbeat");
                 // 发送心跳包
                 sendMsgToTcpServer("ping");
             } else if (event.state().equals(IdleState.ALL_IDLE)) {
@@ -71,8 +74,8 @@ public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         String result = (String) msg;
-        LOGGER.info("msg:" + result);
-     }
+        LOGGER.info("msg:{}", result);
+    }
 
     /**
      * 向服务器发送消息

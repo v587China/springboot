@@ -10,11 +10,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * Tcp Server 配置
+ *
+ * @author admin
+ */
 @Component
+@Conditional(value = TcpServerConditional.class)
 public class TcpServer {
     private static final Logger LOGGER = LoggerFactory.getLogger(TcpServer.class);
     @Autowired
@@ -42,7 +49,7 @@ public class TcpServer {
             //关闭延迟发送
             //bootstrap.option(ChannelOption.TCP_NODELAY, true);
             //维持链接的活跃，清除死链接(SocketChannel的设置)
-            // 长连接
+            //长连接
             bootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
             //设置管道工厂
             bootstrap.childHandler(serverChannelInitializer);

@@ -7,11 +7,18 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 通道策略初始化
+ *
+ * @author admin
+ */
 @Component
+@Conditional(value = TcpServerConditional.class)
 public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
 
     @Autowired

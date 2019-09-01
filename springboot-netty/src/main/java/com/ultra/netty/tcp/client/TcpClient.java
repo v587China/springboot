@@ -16,6 +16,11 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Tcp Client配置
+ *
+ * @author admin
+ */
 @Component
 public class TcpClient {
 
@@ -28,7 +33,9 @@ public class TcpClient {
     @Autowired
     private ClientChannelInitializer clientChannelInitializer;
 
-    // 通过nio方式来接收连接和处理连接
+    /**
+     * 通过nio方式来接收连接和处理连接
+     */
     private EventLoopGroup group = new NioEventLoopGroup();
 
     /**
@@ -45,7 +52,6 @@ public class TcpClient {
      * 建立连接,获取连接通道对象,重连机制
      */
     void reConnect(EventLoopGroup group) {
-        LOGGER.info("reConnect:" + group.hashCode());
         Bootstrap bootstrap = new Bootstrap();
         try {
             bootstrap.group(group);
@@ -53,7 +59,7 @@ public class TcpClient {
             bootstrap.option(ChannelOption.SO_KEEPALIVE, true);
             bootstrap.handler(clientChannelInitializer);
             bootstrap.remoteAddress(host, port);
-            // 阻塞式/同步放开
+            // 阻塞式/同步 放开
             //ChannelFuture channelFuture =
             bootstrap.connect().addListener((ChannelFuture futureListener) -> {
                 if (!futureListener.isSuccess()) {

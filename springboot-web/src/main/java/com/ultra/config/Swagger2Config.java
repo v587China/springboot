@@ -18,6 +18,11 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * swagger配置
+ *
+ * @author admin
+ */
 @Configuration
 @EnableSwagger2
 public class Swagger2Config {
@@ -27,7 +32,8 @@ public class Swagger2Config {
 
     @Bean
     public Docket docket() {
-        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())// 调用apiInfo方法,创建一个ApiInfo实例,里面是展示在文档页面信息内容
+        // 调用apiInfo方法,创建一个ApiInfo实例,里面是展示在文档页面信息内容
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
                 .select()
                 // 控制暴露出去的路径下的实例
                 // 如果某个接口不想暴露,可以使用以下注解
@@ -46,7 +52,7 @@ public class Swagger2Config {
 
     /**
      * 处理包路径配置规则,支持多路径扫描匹配以逗号隔开
-     * 
+     *
      * @param basePackage 扫描包路径
      * @return Function
      */

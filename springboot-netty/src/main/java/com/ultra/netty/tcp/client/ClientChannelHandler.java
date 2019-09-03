@@ -1,5 +1,6 @@
 package com.ultra.netty.tcp.client;
 
+import com.ultra.util.StringUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -63,7 +64,7 @@ public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
             } else if (event.state().equals(IdleState.WRITER_IDLE)) {
                 //LOGGER.info("Tcp Client heartbeat");
                 // 发送心跳包
-                sendMsgToTcpServer("ping");
+                sendMsgToTcpServer("client");
             } else if (event.state().equals(IdleState.ALL_IDLE)) {
                 LOGGER.info("Tcp Client ALL");
             }
@@ -75,9 +76,12 @@ public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        String result = (String) msg;
-        LOGGER.info("msg:{}", result);
+        String hexResult = (String) msg;
+        LOGGER.info("hexResult:{}", hexResult);
+        String result = StringUtil.hexStringToString(hexResult, " ");
+        LOGGER.info("result:{}", result);
     }
+
 
     /**
      * 向服务器发送消息
@@ -87,10 +91,12 @@ public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
     public void sendMsgToTcpServer(String msg) {
         if (ctx != null) {
             LOGGER.info("send message to server:{}", msg);
-            this.ctx.channel().writeAndFlush(msg);
+            String result = StringUtil.stringToHexString(msg, " ");
+            this.ctx.channel().writeAndFlush(result);
         } else {
             LOGGER.error("ChannelHandlerContext is null");
         }
     }
+
 
 }

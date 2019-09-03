@@ -1,5 +1,6 @@
 package com.ultra.netty.tcp.server;
 
+import com.ultra.util.StringUtil;
 import io.netty.channel.*;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
@@ -59,7 +60,8 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
             if (event.state().equals(IdleState.READER_IDLE)) {
                 LOGGER.info("Tcp Server长期没收到客户端推送数据");
             } else if (event.state().equals(IdleState.WRITER_IDLE)) {
-                LOGGER.info("Tcp Server长期未向客户端发送数据");
+                //LOGGER.info("Tcp Server长期未向客户端发送数据");
+                sendMsgToTcpClient("server");
             } else if (event.state().equals(IdleState.ALL_IDLE)) {
                 LOGGER.info("Tcp Server ALL");
             }
@@ -71,8 +73,11 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        String result = (String) msg;
-        LOGGER.info("channelId:{},msg:{}", ctx.channel().id(), result);
+        LOGGER.info("channelId:{}", ctx.channel().id());
+        String hexResult = (String) msg;
+        LOGGER.info("hexResult:{}", hexResult);
+        String result = StringUtil.hexStringToString(hexResult, " ");
+        LOGGER.info("result:{}", result);
     }
 
     /**
@@ -80,14 +85,15 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
      *
      * @param msg 消息
      */
-    public void sendMsgToTcpServer(String msg) {
+    public void sendMsgToTcpClient(String msg) {
         if (!channelMap.isEmpty()) {
             LOGGER.info("send message to client:{}", msg);
             channelMap.forEach((channelId, channel) -> {
                 if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("channelId:{}", channelId);
                 }
-                channel.writeAndFlush(msg);
+                String result = StringUtil.stringToHexString(msg, " ");
+                channel.writeAndFlush(result);
             });
         } else {
             LOGGER.error("ChannelHandlerContext is null");

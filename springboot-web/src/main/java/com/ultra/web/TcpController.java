@@ -33,7 +33,7 @@ public class TcpController {
     @GetMapping("/toClient")
     public void sendMsgToClient(String msg) {
         try {
-            serverChannelHandler.sendMsgToTcpServer(msg);
+            serverChannelHandler.sendMsgToTcpClient(msg);
         } catch (Exception e) {
             TcpToServerException tcpToServerException = new TcpToServerException(e.getMessage());
             //可以直接创建new TcpToServerException(e)保留原始异常;

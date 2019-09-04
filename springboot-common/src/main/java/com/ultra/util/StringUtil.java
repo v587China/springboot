@@ -2,14 +2,34 @@ package com.ultra.util;
 
 public class StringUtil {
     /**
+     * 字符串转16进制字符串,默认使用空格连接
+     *
+     * @param string 原始字符串
+     */
+    public static String stringToHexString(String string) {
+        return stringToHexString(string, " ");
+    }
+
+    /**
      * 字符串转16进制字符串
      *
      * @param string 原始字符串
      * @param regex  连接符
-     * @return
      */
     public static String stringToHexString(String string, String regex) {
-        return bytesToHexString(string.getBytes(), regex);
+        if (isNotEmpty(string)) {
+            return bytesToHexString(string.getBytes(), regex);
+        }
+        return null;
+    }
+
+    /**
+     * 字节数组转16进制字符串,默认使用空格连接符
+     *
+     * @param bytes 字节数组
+     */
+    public static String bytesToHexString(byte[] bytes) {
+        return bytesToHexString(bytes, " ");
     }
 
     /**
@@ -17,9 +37,11 @@ public class StringUtil {
      *
      * @param bytes 字节数组
      * @param regex 连接符
-     * @return
      */
     public static String bytesToHexString(byte[] bytes, String regex) {
+        if (bytes == null || bytes.length == 0) {
+            return null;
+        }
         StringBuilder result = new StringBuilder();
         for (byte b : bytes) {
             result.append(Integer.toHexString(b).toUpperCase()).append(regex);
@@ -32,7 +54,6 @@ public class StringUtil {
      *
      * @param hexString 16进制字符串
      * @param regex     分隔符
-     * @return
      */
     public static String hexStringToString(String hexString, String regex) {
         StringBuilder sb = new StringBuilder();
@@ -43,8 +64,52 @@ public class StringUtil {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        System.out.println(stringToHexString("http://www.cmsoft.cn", " "));
-        System.out.println(hexStringToString("68 74 74 70 3A 2F 2F 77 77 77 2E 63 6D 73 6F 66 74 2E 63 6E ", " "));
+    /**
+     * 16进制字符串转字符串,默认分隔符空格
+     *
+     * @param hexString 16进制字符串
+     */
+    public static String hexStringToString(String hexString) {
+        if (isNotBlank(hexString)) {
+            return hexStringToString(hexString, " ");
+        }
+        return null;
     }
+
+    /**
+     * 判断字符串是否为空(去空格后)
+     *
+     * @param string 参数
+     */
+    public static boolean isBlank(String string) {
+        return string == null || string.equals("") || string.trim().equals("");
+    }
+
+    /**
+     * 判断字符串是否不为空(去空格后)
+     *
+     * @param string 参数
+     */
+    public static boolean isNotBlank(String string) {
+        return !isBlank(string);
+    }
+
+    /**
+     * 判断字符串是否为空(不去空格)
+     *
+     * @param string 参数
+     */
+    public static boolean isEmpty(String string) {
+        return string == null || string.equals("");
+    }
+
+    /**
+     * 判断字符串是否不为空(不去空格)
+     *
+     * @param string 参数
+     */
+    public static boolean isNotEmpty(String string) {
+        return !isEmpty(string);
+    }
+
 }

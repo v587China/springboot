@@ -76,7 +76,7 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
         LOGGER.info("channelId:{}", ctx.channel().id());
         String hexResult = (String) msg;
         LOGGER.info("hexResult:{}", hexResult);
-        String result = StringUtil.hexStringToString(hexResult, " ");
+        String result = StringUtil.hexStringToString(hexResult);
         LOGGER.info("result:{}", result);
     }
 
@@ -92,7 +92,7 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
                 if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("channelId:{}", channelId);
                 }
-                String result = StringUtil.stringToHexString(msg, " ");
+                String result = StringUtil.stringToHexString(msg);
                 channel.writeAndFlush(result);
             });
         } else {

@@ -23,7 +23,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
     private ServerChannelHandler serverChannelHandler = new ServerChannelHandler();
 
     @Override
-    protected void initChannel(SocketChannel ch) throws Exception {
+    protected void initChannel(SocketChannel ch) {
         //获取管道
         ChannelPipeline pipeline = ch.pipeline();
         //字符串解码器编码器

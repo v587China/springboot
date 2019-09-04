@@ -78,7 +78,7 @@ public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         String hexResult = (String) msg;
         LOGGER.info("hexResult:{}", hexResult);
-        String result = StringUtil.hexStringToString(hexResult, " ");
+        String result = StringUtil.hexStringToString(hexResult);
         LOGGER.info("result:{}", result);
     }
 
@@ -91,7 +91,7 @@ public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
     public void sendMsgToTcpServer(String msg) {
         if (ctx != null) {
             LOGGER.info("send message to server:{}", msg);
-            String result = StringUtil.stringToHexString(msg, " ");
+            String result = StringUtil.stringToHexString(msg);
             this.ctx.channel().writeAndFlush(result);
         } else {
             LOGGER.error("ChannelHandlerContext is null");

@@ -1,5 +1,6 @@
 package com.ultra.netty.tcp.client;
 
+import com.ultra.conditional.FalseConditional;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -7,6 +8,7 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
@@ -17,6 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @author admin
  */
 @Component
+@Conditional(FalseConditional.class)
 public class ClientChannelInitializer extends ChannelInitializer<SocketChannel> {
 
     @Autowired

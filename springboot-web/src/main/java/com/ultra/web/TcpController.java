@@ -1,9 +1,11 @@
 package com.ultra.web;
 
+import com.ultra.conditional.FalseConditional;
 import com.ultra.excetion.TcpToServerException;
 import com.ultra.netty.tcp.client.ClientChannelHandler;
 import com.ultra.netty.tcp.server.ServerChannelHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,12 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/tcp")
 public class TcpController {
 
-    @Autowired
+    @Autowired(required = false)
     private ClientChannelHandler clientChannelHandler;
-    @Autowired
+    @Autowired(required = false)
     private ServerChannelHandler serverChannelHandler;
 
     @GetMapping("/toServer")
+    @Conditional(value = FalseConditional.class)
     public void sendMsgToServer(String msg) {
         try {
             clientChannelHandler.sendMsgToTcpServer(msg);

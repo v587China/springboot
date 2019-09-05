@@ -1,6 +1,6 @@
 package com.ultra.netty.tcp.client;
 
-import com.ultra.conditional.TrueConditional;
+import com.ultra.conditional.FalseConditional;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @author admin
  */
 @Component
-@Conditional(value = TrueConditional.class)
+@Conditional(value = FalseConditional.class)
 public class TcpClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TcpClient.class);

@@ -1,5 +1,6 @@
 package com.ultra.netty.tcp.client;
 
+import com.ultra.conditional.FalseConditional;
 import com.ultra.util.StringUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -10,6 +11,7 @@ import io.netty.handler.timeout.IdleStateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ChannelHandler.Sharable
+@Conditional(FalseConditional.class)
 public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientChannelHandler.class);
     @Autowired

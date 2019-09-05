@@ -1,7 +1,5 @@
 package com.ultra.config;
 
-import com.ultra.conditional.FalseConditional;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  *
  * @author admin
  */
-@Conditional(value = FalseConditional.class)
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -51,6 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+    /**
+     * 配置Spring Security的Filter链
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         super.configure(auth);
@@ -172,11 +172,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.POST, "/spittles").hasRole("SPITTER").anyRequest().permitAll();
 //    }
 //
-//    /**
-//     * 配置Spring Security的Filter 链
-//     */
-//    //@Override
-//    public void configure(WebSecurity web) throws Exception {
-//        //super.configure(web);
-//    }
+
 }

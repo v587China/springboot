@@ -1,11 +1,13 @@
 package com.ultra.netty.tcp.server;
 
+import com.ultra.conditional.FalseConditional;
 import com.ultra.util.StringUtil;
 import io.netty.channel.*;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -18,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Component
 @ChannelHandler.Sharable
+@Conditional(value = FalseConditional.class)
 public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerChannelHandler.class);
     private Map<ChannelId, Channel> channelMap = new ConcurrentHashMap<>();

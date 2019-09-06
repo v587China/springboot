@@ -1,6 +1,6 @@
 package com.ultra.web;
 
-import com.ultra.conditional.FalseConditional;
+import com.ultra.conditional.RegisterConditional;
 import com.ultra.excetion.TcpToServerException;
 import com.ultra.netty.tcp.client.ClientChannelHandler;
 import com.ultra.netty.tcp.server.ServerChannelHandler;
@@ -20,7 +20,7 @@ public class TcpController {
     private ServerChannelHandler serverChannelHandler;
 
     @GetMapping("/toServer")
-    @Conditional(value = FalseConditional.class)
+    @Conditional(value = RegisterConditional.class)
     public void sendMsgToServer(String msg) {
         try {
             clientChannelHandler.sendMsgToTcpServer(msg);

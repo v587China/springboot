@@ -1,6 +1,6 @@
 package com.ultra.netty.tcp.server;
 
-import com.ultra.conditional.FalseConditional;
+import com.ultra.conditional.RegisterConditional;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -22,7 +22,7 @@ import javax.annotation.PostConstruct;
  * @author admin
  */
 @Component
-@Conditional(value = FalseConditional.class)
+@Conditional(value = RegisterConditional.class)
 public class TcpServer {
     private static final Logger LOGGER = LoggerFactory.getLogger(TcpServer.class);
     @Autowired

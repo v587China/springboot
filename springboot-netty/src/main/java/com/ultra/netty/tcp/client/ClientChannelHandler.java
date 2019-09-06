@@ -1,6 +1,6 @@
 package com.ultra.netty.tcp.client;
 
-import com.ultra.conditional.FalseConditional;
+import com.ultra.conditional.RegisterConditional;
 import com.ultra.util.StringUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ChannelHandler.Sharable
-@Conditional(FalseConditional.class)
+@Conditional(RegisterConditional.class)
 public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientChannelHandler.class);
     @Autowired

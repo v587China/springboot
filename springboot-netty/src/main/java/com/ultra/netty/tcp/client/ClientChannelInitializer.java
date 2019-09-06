@@ -1,6 +1,6 @@
 package com.ultra.netty.tcp.client;
 
-import com.ultra.conditional.FalseConditional;
+import com.ultra.conditional.RegisterConditional;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @author admin
  */
 @Component
-@Conditional(FalseConditional.class)
+@Conditional(RegisterConditional.class)
 public class ClientChannelInitializer extends ChannelInitializer<SocketChannel> {
 
     @Autowired

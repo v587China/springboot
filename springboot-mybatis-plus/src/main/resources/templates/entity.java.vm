@@ -64,7 +64,11 @@ public class ${entity} implements Serializable {
 #end
 #if(${field.keyFlag})
 ## 主键
-    @NotNull(groups = { UpdateGroup.class }, message = "{attr.required}")
+    #if($!field.columnType.type == "String")
+@NotBlank(groups = { UpdateGroup.class }, message = "{attr.required}")
+    #else
+@NotNull(groups = { UpdateGroup.class }, message = "{attr.required}")
+    #end
 #if(${field.keyIdentityFlag})
     @TableId(value = "${field.name}", type = IdType.AUTO)
 #elseif(!$null.isNull(${idType}) && "$!idType" != "")
@@ -82,6 +86,14 @@ public class ${entity} implements Serializable {
 #end
 #elseif(${field.convert})
     @TableField("${field.name}")
+#else
+    #if($!field.columnType.type == "String")
+    @NotBlank(message = "{attr.required}")
+    @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
+    @Pattern(regexp = RegexpConstant.NAME_RE, message = "{attr.illegal}")
+    #else
+    @NotNull(message = "{attr.required}")
+    #end
 #end
 ## 乐观锁注解
 #if(${versionFieldName}==${field.name})
@@ -91,13 +103,6 @@ public class ${entity} implements Serializable {
 #if(${logicDeleteFieldName}==${field.name})
     @TableLogic
 #end
-    #if($!field.columnType.type == "String")
-    @NotBlank(message = "{attr.required}")
-    @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
-    @Pattern(regexp = RegexpConstant.NAME_RE, message = "{attr.illegal}")
-    #else
-    @NotNull(message = "{attr.required}")
-    #end
     private ${field.propertyType} ${field.propertyName};
 #end
 ## ----------  END 字段循环遍历  ----------

@@ -1,39 +1,24 @@
 package ${package.Controller};
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${package.Entity}.${entity};
+import ${package.Service}.${table.serviceName};
+import com.ultra.validated.UpdateGroup;
 #if(${swagger2})
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 #end
-#if(${restControllerStyle})
-import org.springframework.web.bind.annotation.RestController;
-#else
-import org.springframework.stereotype.Controller;
-#end
-#if(${superControllerClassPackage})
-import ${superControllerClassPackage};
-import java.io.Serializable;
-import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ultra.validated.UpdateGroup;
-import ${package.Entity}.${entity};
-import ${package.Service}.${table.serviceName};
-#end
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 /**
  * <p>
@@ -66,23 +51,23 @@ public class ${table.controllerName} {
 
     @ApiOperation(value = "根据id查询")
     @GetMapping("/{id}")
-    public User getById(@PathVariable Long id) {
+    public ${entity} getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
     @ApiOperation(value = "查询全部")
     @GetMapping("/list")
-    public List<User> list() {
+    public List<${entity}> list() {
         return super.list(null);
     }
 
     @ApiOperation(value = "分页搜索查询")
     @GetMapping("/page")
-    public IPage<User> page(@RequestParam(defaultValue = "1", required = false) int current,
+    public IPage<${entity}> page(@RequestParam(defaultValue = "1", required = false) int current,
             @RequestParam(defaultValue = "10", required = false) int size,
             @RequestParam(required = false) String[] descs, @RequestParam(required = false) String[] ascs,
             @RequestParam(required = false) String search) {
-        Page<User> page = new Page<User>(current, size);
+        Page<${entity}> page = new Page<${entity}>(current, size);
         page.setAsc(ascs);
         page.setDesc(descs);
         QueryWrapper<${entity}> wrapper = null;

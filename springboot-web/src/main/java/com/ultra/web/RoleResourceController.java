@@ -1,31 +1,23 @@
 package com.ultra.web;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ultra.dao.entity.RoleResource;
+import com.ultra.service.RoleResourceService;
+import com.ultra.validated.UpdateGroup;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.RestController;
-import com.ultra.web.BaseController;
-import java.io.Serializable;
-import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ultra.validated.UpdateGroup;
-import com.ultra.dao.entity.RoleResource;
-import com.ultra.service.RoleResourceService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
 
 /**
  * <p>
@@ -43,23 +35,23 @@ public class RoleResourceController extends BaseController<RoleResourceService, 
 
     @ApiOperation(value = "根据id查询")
     @GetMapping("/{id}")
-    public User getById(@PathVariable Long id) {
+    public RoleResource getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
     @ApiOperation(value = "查询全部")
     @GetMapping("/list")
-    public List<User> list() {
+    public List<RoleResource> list() {
         return super.list(null);
     }
 
     @ApiOperation(value = "分页搜索查询")
     @GetMapping("/page")
-    public IPage<User> page(@RequestParam(defaultValue = "1", required = false) int current,
+    public IPage<RoleResource> page(@RequestParam(defaultValue = "1", required = false) int current,
             @RequestParam(defaultValue = "10", required = false) int size,
             @RequestParam(required = false) String[] descs, @RequestParam(required = false) String[] ascs,
             @RequestParam(required = false) String search) {
-        Page<User> page = new Page<User>(current, size);
+        Page<RoleResource> page = new Page<RoleResource>(current, size);
         page.setAsc(ascs);
         page.setDesc(descs);
         QueryWrapper<RoleResource> wrapper = null;

@@ -11,11 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 关闭
+ * 组件注册条件判断
  *
  * @author admin
  */
-public class FalseConditional implements Condition {
+public class RegisterConditional implements Condition {
     private static boolean needInit = true;
     private static boolean isNotNull;
     private static List<String> falseConditionals;

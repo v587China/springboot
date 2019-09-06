@@ -1,10 +1,7 @@
 package com.ultra.util;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
@@ -12,9 +9,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * 图片处理
@@ -34,7 +33,7 @@ public class PictureUtil {
 
     /**
      * 读取文件获取底图坐标范围
-     * 
+     *
      * @param fileName
      * @return
      */
@@ -45,12 +44,12 @@ public class PictureUtil {
             if (file.exists()) {
                 int type = getFileType(fileName);
                 switch (type) {
-                case TYPE_SVG:
-                    return svgHandler(file);
-                case TYPE_IMAGE:
-                    return handlerPicture(file);
-                case TYPE_GEOJSON:
-                    return geojsonHandler(file);
+                    case TYPE_SVG:
+                        return svgHandler(file);
+                    case TYPE_IMAGE:
+                        return handlerPicture(file);
+                    case TYPE_GEOJSON:
+                        return geojsonHandler(file);
                 }
             }
         }
@@ -93,7 +92,7 @@ public class PictureUtil {
 
     /**
      * 根据文件获取底图坐标范围 备用方法
-     * 
+     *
      * @param file
      * @return
      */
@@ -192,10 +191,4 @@ public class PictureUtil {
         return extents;
     }
 
-    public static void main(String[] args) {
-        Double[] result = PictureUtil.getExtents("D:/test.svg");
-        for (int i = 0; i < result.length; i++) {
-            System.out.println(result[i]);
-        }
-    }
 }

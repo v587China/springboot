@@ -22,7 +22,8 @@ public class ClassGenerator {
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "root";
     private static final String TABLE_PREFIX = "spring_";
-    private static final String[] TABLES = {"spring_user", "spring_role", "spring_user_role", "spring_resource", "spring_role_resource"};
+    //"spring_user", "spring_role", "spring_user_role", "spring_resource", "spring_role_resource"
+    private static final String[] TABLES = {"spring_user"};
 
     /**
      * 模板风格

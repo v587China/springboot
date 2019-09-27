@@ -5,13 +5,20 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ultra.dao.entity.User">
         <id column="id" property="id" />
-        <result column="name" property="name" />
+        <result column="username" property="username" />
         <result column="password" property="password" />
+        <result column="email" property="email" />
+        <result column="address" property="address" />
+        <result column="age" property="age" />
+        <result column="expired" property="expired" />
+        <result column="disabled" property="disabled" />
+        <result column="locked" property="locked" />
+        <result column="note" property="note" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, password
+        id, username, password, email, address, age, expired, disabled, locked, note
     </sql>
 
 </mapper>

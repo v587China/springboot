@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ultra.bo.CasUser;
 import com.ultra.dao.entity.User;
 import com.ultra.service.UserService;
-import com.ultra.util.JacksonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

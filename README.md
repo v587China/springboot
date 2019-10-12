@@ -10,4 +10,4 @@ controller中常用的增删改查实现自动生成
 
 #springboot-web:controller,config,aspect,exception
 
-##未实现:①不可修改的参数怎么处理②参数防篡改
+##未实现:①不可修改的参数怎么处理②参数防篡改③未修改的值是否可不传

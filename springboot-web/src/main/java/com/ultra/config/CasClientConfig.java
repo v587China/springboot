@@ -35,7 +35,7 @@ public class CasClientConfig {
         registration.setFilter(new SingleSignOutFilter());
         // 设定匹配的路径
         registration.addUrlPatterns("/*");
-        Map<String, String> initParameters = new HashMap();
+        Map<String, String> initParameters = new HashMap<>();
         initParameters.put("casServerUrlPrefix", CasConfig.CAS_SERVER_LOGIN_PATH);
         registration.setInitParameters(initParameters);
         // 设定加载的顺序
@@ -70,7 +70,7 @@ public class CasClientConfig {
 
         // 设定匹配的路径
         registration.addUrlPatterns("/*");
-        Map<String, String> initParameters = new HashMap();
+        Map<String, String> initParameters = new HashMap<>();
         initParameters.put("casServerUrlPrefix", CasConfig.CAS_SERVER_PATH);
         initParameters.put("serverName", CasConfig.SERVER_NAME);
 
@@ -93,7 +93,7 @@ public class CasClientConfig {
     public FilterRegistrationBean filterAuthenticationRegistration() {
 
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        Map<String, String> initParameters = new HashMap();
+        Map<String, String> initParameters = new HashMap<>();
 
         registration.setFilter(new AuthenticationFilter());
         registration.addUrlPatterns("/*");

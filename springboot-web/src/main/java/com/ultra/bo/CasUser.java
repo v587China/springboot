@@ -40,7 +40,9 @@ public class CasUser implements Serializable {
 
     private Integer locked = 0;
 
-    //需要返回实现org.apereo.cas.authentication.principal.Principal的类名接口
+    /**
+     * 需要返回实现org.apereo.cas.authentication.principal.Principal的类名接口
+     */
     @JsonProperty("@class")
     private String clazz = "org.apereo.cas.authentication.principal.SimplePrincipal";
 

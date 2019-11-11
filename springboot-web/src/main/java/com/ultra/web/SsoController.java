@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
 
+/**
+ * @author admin
+ */
 @RestController
 @RequestMapping("/sso")
 public class SsoController {
@@ -64,8 +67,8 @@ public class SsoController {
     /**
      * 根据请求头获取用户名及密码
      *
-     * @param httpHeaders
-     * @return
+     * @param httpHeaders 请求头
+     * @return 用户
      */
     private CasUser getUserFormHeader(HttpHeaders httpHeaders) {
         /*
@@ -74,12 +77,14 @@ public class SsoController {
          * Credentials are passed via an Authorization header whose value is Basic XYZ where XYZ is a Base64 encoded version of the credentials.
          */
         //根据官方文档，当请求过来时，会通过把用户信息放在请求头authorization中，并且通过Basic认证方式加密
-        String authorization = httpHeaders.getFirst("authorization");//将得到 Basic Base64(用户名:密码)
+        //将得到 Basic Base64(用户名:密码)
+        String authorization = httpHeaders.getFirst("authorization");
         if (StringUtils.isEmpty(authorization)) {
             return null;
         }
         String baseCredentials = authorization.split(" ")[1];
-        String usernamePassword = new String(Base64Utils.decodeFromString(baseCredentials), StandardCharsets.UTF_8);//用户名:密码
+        //用户名:密码
+        String usernamePassword = new String(Base64Utils.decodeFromString(baseCredentials), StandardCharsets.UTF_8);
         String[] credentials = usernamePassword.split(":");
         return new CasUser(credentials[0], credentials[1]);
     }

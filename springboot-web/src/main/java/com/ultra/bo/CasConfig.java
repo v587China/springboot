@@ -1,12 +1,15 @@
 package com.ultra.bo;
 
+/**
+ * @author admin
+ */
 public class CasConfig {
 
 
     /**
      * 当前应用程序的baseUrl（注意最后面的斜线）
      */
-    public static String SERVER_NAME = "http://app1.com:8080/";
+    public static String SERVER_NAME = "http://localhost:58080/";
 
 
     /**

@@ -18,16 +18,16 @@ import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author admin
+ */
 @Configuration
-@Conditional(RegisterConditional.class)
 public class CasClientConfig {
     /*========================== SSO配置-开始  ============================*/
 
     /**
      * SingleSignOutFilter 登出过滤器
      * 该过滤器用于实现单点登出功能，可选配置
-     *
-     * @return
      */
     @Bean
     public FilterRegistrationBean filterSingleRegistration() {
@@ -46,8 +46,6 @@ public class CasClientConfig {
     /**
      * SingleSignOutHttpSessionListener 添加监听器
      * 用于单点退出，该过滤器用于实现单点登出功能，可选配置
-     *
-     * @return
      */
     @Bean
     public ServletListenerRegistrationBean<EventListener> singleSignOutListenerRegistration() {
@@ -131,7 +129,7 @@ public class CasClientConfig {
         return registration;
     }
 
-    /*
+    /**
      * HttpServletRequestWrapperFilter wraper过滤器
      * 该过滤器负责实现HttpServletRequest请求的包裹，
      * 比如允许开发者通过HttpServletRequest的getRemoteUser()方法获得SSO登录用户的登录名，可选配置。

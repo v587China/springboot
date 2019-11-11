@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * cas不拦截地址
+ *
+ * @author admin
  */
 public class SimpleUrlPatternMatcherStrategy implements UrlPatternMatcherStrategy {
 

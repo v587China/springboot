@@ -4,6 +4,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.logicalcobwebs.cglib.beans.BeanCopier;
 
+/**
+ * @author admin
+ */
 public class BeanUtils {
     public static ConcurrentHashMap<String, BeanCopier> beanCopierMap = new ConcurrentHashMap<String, BeanCopier>();
 

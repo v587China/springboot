@@ -1,4 +1,4 @@
-package com.ultra.web;
+package com.ultra.api;
 
 import com.ultra.conditional.RegisterConditional;
 import com.ultra.excetion.TcpToServerException;
@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author admin
+ */
 @RestController
 @RequestMapping("/tcp")
 public class TcpController {

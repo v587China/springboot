@@ -1,10 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
-<title>spring boot contacts</title>
+    <script>
+        $(document).ready(function () {
+            var service = GetQueryString("service");
+            // 如果为空，表示直接进入登录页面
+            if (service == null) {
+                service = "http://localhost:58080/springboot/index.html";
+            }
+            console.info("service：" + service);
+            $("#service").val(service); // 受访受限url的地址
+            // 新进行判断用户是否登录过
+            $.ajax({
+                method: "GET",
+                url: "http://sso.server.com:58080/springboot/sso/cas/checkUser",
+                data: {
+                    'service': service
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                dataType: "jsonp",
+                jsonp: "callback",
+                // cache: false,
+                success: function (result) {
+                    console.info("请求成功");
+                    console.info(result);
+                    if (result.status == 1) {
+                        // 设置 302 重定向跳转
+                        window.location.href = result.data;
+                    } else {
+                        // 显示登录页面
+                        $("#loginDiv").show("slow");
+                    }
+                },
+                error: function (data) {
+                    console.info("请求失败");
+                    $("#loginDiv").show("slow");
+                }
+            });
+        });
+    </script>
+    <meta charset="UTF-8"/>
+    <title>spring boot contacts</title>
 </head>
 <body>
-	<h1>index</h1>
+<div id="loginDiv" style="display: none">
+    <form action="http://sso.server.com:58080/springboot/sso/cas" method="post">
+        <table>
+            <tr>
+                <td>用户名:</td>
+                <td><input id="username" name="username" type="text"></td>
+            </tr>
+            <tr>
+                <td>密 码:</td>
+                <td><input id="password" name="password" type="password"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="hidden" name="service" id="service" value="">
+                    <input type="submit" value="登录">
+                </td>
+                <td><input type="reset"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
 </body>
 </html>

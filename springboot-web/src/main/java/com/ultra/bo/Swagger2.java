@@ -7,8 +7,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * @author admin
+ */
 @Component
-//@EnableConfigurationProperties //spring boot自动配置为每个类都开启了使用配置属性功能
+/**
+ * @EnableConfigurationProperties spring boot自动配置为每个类都开启了使用配置属性功能
+ */
 @ConfigurationProperties("swagger2")
 @Setter
 @Getter

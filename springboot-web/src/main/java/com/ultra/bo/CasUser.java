@@ -12,12 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>
- * 用户
- * </p>
- *
- * @author ${author}
- * @since 2019-09-25
+ * @author admin
  */
 @Setter
 @Getter

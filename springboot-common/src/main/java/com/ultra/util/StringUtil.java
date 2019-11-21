@@ -1,5 +1,8 @@
 package com.ultra.util;
 
+/**
+ * @author admin
+ */
 public class StringUtil {
     /**
      * 字符串转16进制字符串,默认使用空格连接

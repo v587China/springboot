@@ -3,6 +3,10 @@ package com.ultra.common;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * @author admin
+ */
+
 public enum ErrorType {
     /**
      * 属性不合法

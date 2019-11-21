@@ -1,4 +1,4 @@
-package com.ultra.web;
+package com.ultra.api;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ultra.bo.CasUser;
@@ -63,7 +63,6 @@ public class SsoController {
         }
     }
 
-
     /**
      * 根据请求头获取用户名及密码
      *
@@ -71,11 +70,6 @@ public class SsoController {
      * @return 用户
      */
     private CasUser getUserFormHeader(HttpHeaders httpHeaders) {
-        /*
-         *
-         * This allows the CAS server to reach to a remote REST endpoint via a POST for verification of credentials.
-         * Credentials are passed via an Authorization header whose value is Basic XYZ where XYZ is a Base64 encoded version of the credentials.
-         */
         //根据官方文档，当请求过来时，会通过把用户信息放在请求头authorization中，并且通过Basic认证方式加密
         //将得到 Basic Base64(用户名:密码)
         String authorization = httpHeaders.getFirst("authorization");

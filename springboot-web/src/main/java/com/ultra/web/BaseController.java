@@ -11,6 +11,9 @@ import org.springframework.context.MessageSource;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author admin
+ */
 public abstract class BaseController<M extends IService<T>, T> {
 
     @Autowired
@@ -20,43 +23,34 @@ public abstract class BaseController<M extends IService<T>, T> {
 
     /**
      * 查询
-     *
-     * @param id
-     * @return
      */
-    protected T getById(Serializable id) {
+    T getById(Serializable id) {
         return baseService.getById(id);
     }
 
-    protected List<T> list(Wrapper<T> wrapper) {
+    List<T> list(Wrapper<T> wrapper) {
         return baseService.list(wrapper);
     }
 
     /**
      * 分页
-     *
-     * @param page
-     * @return
      */
     protected IPage<T> page(IPage<T> page) {
         return page(page, null);
     }
 
-    protected IPage<T> page(IPage<T> page, Wrapper<T> wrapper) {
+    IPage<T> page(IPage<T> page, Wrapper<T> wrapper) {
         return baseService.page(page, wrapper);
     }
 
     /**
      * 新增
-     *
-     * @param t
-     * @return
      */
-    public boolean save(T t) {
+    boolean save(T t) {
         return baseService.save(t);
     }
 
-    protected boolean saveBatch(List<T> list) {
+    boolean saveBatch(List<T> list) {
         return baseService.saveBatch(list);
     }
 
@@ -66,11 +60,11 @@ public abstract class BaseController<M extends IService<T>, T> {
      * @param t
      * @return
      */
-    protected boolean updateById(T t) {
+    boolean updateById(T t) {
         return baseService.updateById(t);
     }
 
-    protected boolean updateBatchById(List<T> list) {
+    boolean updateBatchById(List<T> list) {
         return baseService.updateBatchById(list);
     }
 
@@ -80,11 +74,11 @@ public abstract class BaseController<M extends IService<T>, T> {
      * @param id
      * @return
      */
-    protected boolean removeById(Serializable id) {
+    private boolean removeById(Serializable id) {
         return baseService.removeById(id);
     }
 
-    protected boolean removeByIds(List<? extends Serializable> ids) {
+    boolean removeByIds(List<? extends Serializable> ids) {
         if (ids.size() == 1) {
             return removeById(ids.get(0));
         }
@@ -94,11 +88,10 @@ public abstract class BaseController<M extends IService<T>, T> {
     /**
      * 封装搜索条件
      *
-     * @param searchColumnS
-     * @param search
-     * @return
+     * @param searchColumnS 需要搜索表的列名
+     * @param search        搜索的内容
      */
-    protected QueryWrapper<T> setSearch(String searchColumnS, String search) {
+    QueryWrapper<T> setSearch(String searchColumnS, String search) {
         QueryWrapper<T> wrapper = null;
         if (StringUtils.isNotBlank(search) && StringUtils.isNotBlank(searchColumnS)) {
             wrapper = new QueryWrapper<>();

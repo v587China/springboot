@@ -1,5 +1,8 @@
 package com.ultra.common;
 
+/**
+ * @author admin
+ */
 public class ErrorBuilder {
 
     /**

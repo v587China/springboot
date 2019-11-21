@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-
 /**
  * <p>
  * 角色资源关系 前端控制器
@@ -48,9 +47,9 @@ public class RoleResourceController extends BaseController<RoleResourceService, 
     @ApiOperation(value = "分页搜索查询")
     @GetMapping("/page")
     public IPage<RoleResource> page(@RequestParam(defaultValue = "1", required = false) int current,
-            @RequestParam(defaultValue = "10", required = false) int size,
-            @RequestParam(required = false) String[] descs, @RequestParam(required = false) String[] ascs,
-            @RequestParam(required = false) String search) {
+                                    @RequestParam(defaultValue = "10", required = false) int size,
+                                    @RequestParam(required = false) String[] descs, @RequestParam(required = false) String[] ascs,
+                                    @RequestParam(required = false) String search) {
         Page<RoleResource> page = new Page<RoleResource>(current, size);
         page.setAsc(ascs);
         page.setDesc(descs);
@@ -69,7 +68,7 @@ public class RoleResourceController extends BaseController<RoleResourceService, 
 
     @ApiOperation(value = "更新")
     @PutMapping
-    public boolean updateById(@Validated({ UpdateGroup.class }) @RequestBody RoleResource entity, Errors errors) {
+    public boolean updateById(@Validated({UpdateGroup.class}) @RequestBody RoleResource entity, Errors errors) {
         return super.updateById(entity);
     }
 

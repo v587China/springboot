@@ -17,6 +17,8 @@ import java.io.IOException;
 
 /**
  * 图片处理
+ *
+ * @author admin
  */
 public class PictureUtil {
 

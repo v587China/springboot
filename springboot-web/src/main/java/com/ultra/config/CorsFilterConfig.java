@@ -7,12 +7,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 /**
- * 
- * @Description: 解决跨域问题
  * @author fan
- * @date 2019年7月25日 下午7:47:37
- * 
  * @version 6.0
+ * @Description: 解决跨域问题
+ * @date 2019年7月25日 下午7:47:37
  */
 @Configuration
 public class CorsFilterConfig {

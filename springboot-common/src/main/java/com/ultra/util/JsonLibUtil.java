@@ -2,6 +2,9 @@ package com.ultra.util;
 
 import net.sf.json.JSONObject;
 
+/**
+ * @author admin
+ */
 public class JsonLibUtil {
 
     public static String bean2Json(Object obj) {

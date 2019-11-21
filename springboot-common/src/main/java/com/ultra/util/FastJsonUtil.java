@@ -2,6 +2,9 @@ package com.ultra.util;
 
 import com.alibaba.fastjson.JSON;
 
+/**
+ * @author admin
+ */
 public class FastJsonUtil {
 
     public static String bean2Json(Object obj) {

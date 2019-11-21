@@ -91,10 +91,11 @@ public class CasClientConfig {
     public FilterRegistrationBean filterAuthenticationRegistration() {
 
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        Map<String, String> initParameters = new HashMap<>();
 
         registration.setFilter(new AuthenticationFilter());
         registration.addUrlPatterns("/*");
+
+        Map<String, String> initParameters = new HashMap<>();
         initParameters.put("casServerLoginUrl", CasConfig.CAS_SERVER_LOGIN_PATH);
         initParameters.put("serverName", CasConfig.SERVER_NAME);
 

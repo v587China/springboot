@@ -50,7 +50,7 @@ public class RoleController extends BaseController<RoleService, Role> {
                             @RequestParam(defaultValue = "10", required = false) int size,
                             @RequestParam(required = false) String[] descs, @RequestParam(required = false) String[] ascs,
                             @RequestParam(required = false) String search) {
-        Page<Role> page = new Page<Role>(current, size);
+        Page<Role> page = new Page<>(current, size);
         page.setAsc(ascs);
         page.setDesc(descs);
         QueryWrapper<Role> wrapper = null;

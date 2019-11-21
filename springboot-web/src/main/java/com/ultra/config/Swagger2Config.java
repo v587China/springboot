@@ -41,13 +41,8 @@ public class Swagger2Config {
                 .apis(basePackage(swagger2.getBasePackage())).paths(PathSelectors.any()).build();
     }
 
-    public static Predicate<RequestHandler> basePackage(final String basePackage) {
-        return new Predicate<RequestHandler>() {
-            @Override
-            public boolean apply(RequestHandler input) {
-                return declaringClass(input).transform(handlerPackage(basePackage)).or(true);
-            }
-        };
+    private static Predicate<RequestHandler> basePackage(final String basePackage) {
+        return input -> declaringClass(input).transform(handlerPackage(basePackage)).or(true);
     }
 
     /**

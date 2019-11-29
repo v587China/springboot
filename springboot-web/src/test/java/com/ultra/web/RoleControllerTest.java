@@ -1,28 +1,26 @@
 package com.ultra.web;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ultra.dao.entity.User;
-import com.ultra.service.UserService;
+import com.ultra.dao.entity.Role;
+import com.ultra.service.RoleService;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author fan
- * @date 2019/11/22 16:44
+ * @date 2019/11/22 16:56
  */
-public class UserControllerTest extends BaseTest {
+public class RoleControllerTest extends BaseTest {
 
     @Autowired
-    protected UserService userService;
+    protected RoleService roleService;
 
 
-    void forEach(List<User> tList) {
+    void forEach(List<Role> tList) {
         if (CollectionUtils.isNotEmpty(tList)) {
             tList.forEach((t) -> {
                 System.out.println(t);
@@ -32,19 +30,19 @@ public class UserControllerTest extends BaseTest {
 
     @Test
     public void getById() {
-        System.out.println(userService.getById(1L));
+        System.out.println(roleService.getById(1L));
     }
 
     @Test
     public void list() {
-        List<User> users = userService.list(null);
-        forEach(users);
+        List<Role> roles = roleService.list(null);
+        forEach(roles);
     }
 
     @Test
     public void page() {
-        IPage<User> iPage = new Page<>();
-        userService.page(iPage);
+        IPage<Role> iPage = new Page<>();
+        roleService.page(iPage);
         if (iPage != null) {
             System.out.println(iPage.getCurrent());
             System.out.println(iPage.getPages());

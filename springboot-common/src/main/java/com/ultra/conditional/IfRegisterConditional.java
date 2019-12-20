@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author admin
  */
-public class RegisterConditional implements Condition {
+public class IfRegisterConditional implements Condition {
     private static boolean needInit = true;
     private static boolean isNotNull;
     private static List<String> falseConditionals;

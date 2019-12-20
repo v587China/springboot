@@ -11,7 +11,7 @@ public enum ErrorType {
     /**
      * 属性不合法
      */
-    FIELD_ILLEGAL(404, "属性不合法"),
+    FIELD_ILLEGAL(412, "属性不合法"),
     /**
      * 暂未登录或token已经过期
      */

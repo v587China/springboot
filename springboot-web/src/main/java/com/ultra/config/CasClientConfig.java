@@ -1,7 +1,7 @@
 package com.ultra.config;
 
 import com.ultra.bo.CasConfig;
-import com.ultra.conditional.RegisterConditional;
+import com.ultra.conditional.IfRegisterConditional;
 import org.jasig.cas.client.authentication.AuthenticationFilter;
 import org.jasig.cas.client.session.SingleSignOutFilter;
 import org.jasig.cas.client.session.SingleSignOutHttpSessionListener;
@@ -22,6 +22,7 @@ import java.util.Map;
  * @author admin
  */
 @Configuration
+@Conditional(IfRegisterConditional.class)
 public class CasClientConfig {
     /*========================== SSO配置-开始  ============================*/
 

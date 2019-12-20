@@ -17,6 +17,8 @@ import com.ultra.util.ValidUtil;
 
 /**
  * HibernateValidator错误结果处理切面
+ *
+ * @author admin
  */
 @Aspect
 @Component

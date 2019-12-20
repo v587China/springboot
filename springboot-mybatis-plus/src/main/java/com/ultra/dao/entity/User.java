@@ -87,7 +87,9 @@ public class User implements Serializable {
     @Pattern(regexp = RegexpConstant.NAME_RE, message = "{attr.illegal}")
     private String note;
 
-    //需要返回实现org.apereo.cas.authentication.principal.Principal的类名接口
+    /**
+     * 需要返回实现org.apereo.cas.authentication.principal.Principal的类名接口
+     */
     @TableField(exist = false)
     @JsonProperty("@class")
     private String clazz = "org.apereo.cas.authentication.principal.SimplePrincipal";

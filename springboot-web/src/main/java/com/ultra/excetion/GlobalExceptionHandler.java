@@ -1,7 +1,6 @@
 package com.ultra.excetion;
 
 import com.ultra.common.Error;
-import com.ultra.common.ErrorBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -9,6 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * @author admin
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -17,7 +19,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Error illegalArgumentException(IllegalArgumentException exception) {
-        return ErrorBuilder.buildBad(exception.getMessage());
+        return Error.illegalField(exception.getMessage());
     }
 
     @ExceptionHandler(TcpToServerException.class)
@@ -27,13 +29,13 @@ public class GlobalExceptionHandler {
         logger.error("", exception);
         //原始异常
         logger.error("", exception.getCause());
-        return ErrorBuilder.buildBad(exception.getMessage());
+        return Error.errorServer(exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Error Exception(Exception exception) {
+    public Error exception(Exception exception) {
         logger.error("", exception);
-        return ErrorBuilder.buildError(exception.getMessage());
+        return Error.errorServer(exception.getMessage());
     }
 }

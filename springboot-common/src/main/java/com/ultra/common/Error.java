@@ -30,7 +30,7 @@ public class Error {
      * @return Error
      */
     public static Error illegalField(String mess) {
-        return buildError(ErrorType.FIELD_ILLEGAL.getCode(), mess);
+        return buildError(ErrorType.FIELD_ILLEGAL, mess);
     }
 
     /**
@@ -40,7 +40,7 @@ public class Error {
      * @return Error
      */
     public static Error errorServer(String mess) {
-        return buildError(ErrorType.SERVER_ERROR.getCode(), mess);
+        return buildError(ErrorType.SERVER_ERROR, mess);
     }
 
     /**

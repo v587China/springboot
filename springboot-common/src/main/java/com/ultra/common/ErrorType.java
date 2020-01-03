@@ -1,40 +1,27 @@
 package com.ultra.common;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * @author admin
  */
 
-public enum ErrorType {
+public class ErrorType {
     /**
      * 属性不合法
      */
-    FIELD_ILLEGAL(412, "属性不合法"),
+    static int FIELD_ILLEGAL = 412;
+
     /**
      * 暂未登录或token已经过期
      */
-    UNAUTHORIZED(401, "暂未登录或token已经过期"),
+    static int UNAUTHORIZED = 401;
+
     /**
      * 没有相关权限
      */
-    FORBIDDEN(403, "没有相关权限"),
+    static int FORBIDDEN = 403;
+
     /**
      * 内部服务器错误
      */
-    SERVER_ERROR(500, "内部服务器错误");
-
-    @Setter
-    @Getter
-    private int code;
-    @Setter
-    @Getter
-    private String message;
-
-    ErrorType(int code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
+    static int SERVER_ERROR = 500;
 }

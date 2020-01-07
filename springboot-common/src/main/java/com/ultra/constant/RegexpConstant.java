@@ -1,5 +1,8 @@
 package com.ultra.constant;
 
+/**
+ * @author admin
+ */
 public class RegexpConstant {
 
     /**

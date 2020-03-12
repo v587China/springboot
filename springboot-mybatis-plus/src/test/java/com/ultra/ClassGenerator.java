@@ -31,7 +31,7 @@ public class ClassGenerator {
     private static final String PACKAGE_NAME = "com.ultra";
     private static final String ENTITY_VM = "/templates/entity.java.vm";
     private static final String CONTROLLER_VM = "/templates/controller.java.vm";
-    private static final String SUPERD_CONTROLLER_CLASS = "com.ultra.web.BaseController";
+    private static final String SUPER_CONTROLLER_CLASS = "com.ultra.web.BaseController";
     // user -> UserService, 设置成true: user -> IUserService
     private static final boolean SERVICE_NAME_START_WITH_I = false;
 
@@ -100,7 +100,7 @@ public class ClassGenerator {
         strategyConfig.setCapitalMode(true).setEntityLombokModel(true).setRestControllerStyle(true)
                 .setTablePrefix(TABLE_PREFIX).setNaming(NamingStrategy.underline_to_camel)
                 .setColumnNaming(NamingStrategy.underline_to_camel).setInclude(TABLES)
-                .setSuperControllerClass(SUPERD_CONTROLLER_CLASS);
+                .setSuperControllerClass(SUPER_CONTROLLER_CLASS);
         return strategyConfig;
     }
 

@@ -1,16 +1,11 @@
 package com.ultra;
 
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
-
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
 
 public class ClassGenerator {
 
@@ -23,7 +18,7 @@ public class ClassGenerator {
     private static final String DB_PASSWORD = "root";
     private static final String TABLE_PREFIX = "spring_";
     //"spring_user", "spring_role", "spring_user_role", "spring_resource", "spring_role_resource"
-    private static final String[] TABLES = {"spring_user"};
+    private static final String[] TABLES = {"spring_user", "spring_role", "spring_user_role", "spring_resource", "spring_role_resource"};
 
     /**
      * 模板风格
@@ -98,7 +93,7 @@ public class ClassGenerator {
     private StrategyConfig initStrategyConfig() {
         StrategyConfig strategyConfig = new StrategyConfig();
         strategyConfig.setCapitalMode(true).setEntityLombokModel(true).setRestControllerStyle(true)
-                .setTablePrefix(TABLE_PREFIX).setNaming(NamingStrategy.underline_to_camel)
+                .setTablePrefix(TABLE_PREFIX).setNaming(NamingStrategy.underline_to_camel).setEntityBooleanColumnRemoveIsPrefix(true)
                 .setColumnNaming(NamingStrategy.underline_to_camel).setInclude(TABLES)
                 .setSuperControllerClass(SUPER_CONTROLLER_CLASS);
         return strategyConfig;

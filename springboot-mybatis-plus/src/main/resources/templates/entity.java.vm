@@ -90,7 +90,7 @@ public class ${entity} implements Serializable {
     #if($!field.columnType.type == "String")
     @NotBlank(message = "{attr.required}")
     @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
-    @Pattern(regexp = RegexpConstant.NAME_RE, message = "{attr.illegal}")
+    @Pattern(regexp = RegexpConstant.NAME_REGEXP, message = "{attr.illegal}")
     #else
     @NotNull(message = "{attr.required}")
     #end

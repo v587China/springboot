@@ -1,5 +1,8 @@
 package com.ultra.excetion;
 
+/**
+ * @author admin
+ */
 public class TcpToServerException extends RuntimeException {
 
     public TcpToServerException() {

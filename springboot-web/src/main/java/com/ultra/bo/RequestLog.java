@@ -12,7 +12,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class WebLog {
+public class RequestLog {
 
     /**
      * 操作描述
@@ -32,7 +32,7 @@ public class WebLog {
     /**
      * 消耗时间
      */
-    private Integer spendTime;
+    private Integer useTime;
 
     /**
      * 根路径

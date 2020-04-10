@@ -39,7 +39,7 @@ public class Resource implements Serializable {
     @ApiModelProperty(value = "资源名称")
     @NotBlank(message = "{attr.required}")
     @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
-    @Pattern(regexp = RegexpConstant.NAME_RE, message = "{attr.illegal}")
+    @Pattern(regexp = RegexpConstant.NAME_REGEXP, message = "{attr.illegal}")
     private String name;
 
     @ApiModelProperty(value = "url")

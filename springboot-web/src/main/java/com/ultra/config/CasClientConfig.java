@@ -36,7 +36,7 @@ public class CasClientConfig {
         registration.setFilter(new SingleSignOutFilter());
         // 设定匹配的路径
         registration.addUrlPatterns("/*");
-        Map<String, String> initParameters = new HashMap<>();
+        Map<String, String> initParameters = new HashMap<>(1);
         initParameters.put("casServerUrlPrefix", CasConfig.CAS_SERVER_LOGIN_PATH);
         registration.setInitParameters(initParameters);
         // 设定加载的顺序

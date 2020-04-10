@@ -23,11 +23,14 @@ import java.nio.charset.StandardCharsets;
 @RestController
 @RequestMapping("/sso")
 public class SsoController {
+
+    private static final String USERNAME_KEY = "username";
     @Autowired
     private UserService userService;
 
     @PostMapping("/cas")
     public Object login(@RequestHeader HttpHeaders httpHeaders) {
+
         CasUser casUser = getUserFormHeader(httpHeaders);
         //当没有 传递 参数的情况
         if (casUser == null) {
@@ -35,22 +38,22 @@ public class SsoController {
         }
         //尝试查找用户库是否存在
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("username", casUser.getUsername());
+        wrapper.eq(USERNAME_KEY, casUser.getUsername());
         User user = userService.getOne(wrapper);
         if (user != null) {
             if (!user.getPassword().equals(casUser.getPassword())) {
                 //密码不匹配
                 return new ResponseEntity(HttpStatus.BAD_REQUEST);
             }
-            if (user.getDisabled() == 1) {
+            if (user.getDisabled()) {
                 //禁用 403
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
             }
-            if (user.getLocked() == 1) {
+            if (user.getLocked()) {
                 //锁定 423
                 return new ResponseEntity(HttpStatus.LOCKED);
             }
-            if (user.getExpired() == 1) {
+            if (user.getExpired()) {
                 //过期 428
                 return new ResponseEntity(HttpStatus.PRECONDITION_REQUIRED);
             }

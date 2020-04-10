@@ -1,19 +1,15 @@
 package com.ultra.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.ToString;
 import lombok.Getter;
 import lombok.Setter;
-import javax.validation.constraints.NotBlank;
+import lombok.ToString;
+
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import com.ultra.constant.LengthValidatedConstant;
-import com.ultra.constant.RegexpConstant;
-import com.ultra.validated.UpdateGroup;
-import org.hibernate.validator.constraints.Length;
+import java.io.Serializable;
+
 /**
  * <p>
  * 角色资源关系
@@ -26,15 +22,10 @@ import org.hibernate.validator.constraints.Length;
 @Getter
 @ToString
 @TableName("spring_role_resource")
-@ApiModel(value="RoleResource对象", description="角色资源关系")
+@ApiModel(value = "RoleResource对象", description = "角色资源关系")
 public class RoleResource implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "主键")
-        @NotNull(groups = { UpdateGroup.class }, message = "{attr.required}")
-    @NotNull(message = "{attr.required}")
-    private Long id;
 
     @ApiModelProperty(value = "角色主键")
     @NotNull(message = "{attr.required}")

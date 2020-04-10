@@ -10,15 +10,17 @@
         <result column="email" property="email" />
         <result column="address" property="address" />
         <result column="age" property="age" />
-        <result column="expired" property="expired" />
-        <result column="disabled" property="disabled" />
-        <result column="locked" property="locked" />
+        <result column="is_expired" property="expired" />
+        <result column="is_disabled" property="disabled" />
+        <result column="is_locked" property="locked" />
         <result column="note" property="note" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, username, password, email, address, age, expired, disabled, locked, note
+        id, username, password, email, address, age, is_expired, is_disabled, is_locked, note, gmt_create, gmt_modified
     </sql>
 
 </mapper>

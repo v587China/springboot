@@ -4,14 +4,13 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ultra.dao.entity.RoleResource">
-        <id column="id" property="id" />
-        <result column="role_id" property="roleId" />
+        <id column="role_id" property="roleId" />
         <result column="resource_id" property="resourceId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, role_id, resource_id
+        role_id, resource_id
     </sql>
 
 </mapper>

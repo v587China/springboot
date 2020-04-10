@@ -1,7 +1,7 @@
 package com.ultra.aspect;
 
-import com.ultra.bo.UseTimeLog;
-import com.ultra.util.ThreadLocalUtil;
+import com.ultra.dao.entity.UseTimeLog;
+import com.ultra.service.UseTimeLogService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -9,9 +9,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.aop.support.AopUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -19,9 +18,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 各个组件耗时日志处理切面
@@ -32,7 +30,13 @@ import java.util.Random;
 @Component
 @Order(3)
 public class UseTimeLogAspect {
-    private static final Logger logger = LoggerFactory.getLogger(UseTimeLogAspect.class);
+
+    @Autowired
+    private UseTimeLogService useTimeLogService;
+
+    private static final ThreadLocal<Long> THREAD_LOCAL = new ThreadLocal<>();
+
+    private static final Map<Long, List<UseTimeLog>> ID_USE_TIME_LOG = new ConcurrentHashMap<>();
 
     @Pointcut("execution(public * com.ultra.web.*.*(..))")
     public void webLog() {
@@ -89,14 +93,20 @@ public class UseTimeLogAspect {
      */
     private Object recordUseTime(ProceedingJoinPoint joinPoint) throws Throwable {
         UseTimeLog useTimeLog = new UseTimeLog();
-        useTimeLog.setId(System.currentTimeMillis() * 1000 + new Random(1000).nextLong());
-        List<UseTimeLog> useTimeLogs = ThreadLocalUtil.getUseTimeLogs();
-        if (useTimeLogs == null) {
+        Long baseId = THREAD_LOCAL.get();
+        long id = System.currentTimeMillis() * 1000L + new Random().nextInt(1000);
+        useTimeLog.setId(id);
+        List<UseTimeLog> useTimeLogs;
+        if (baseId == null) {
             useTimeLog.setPId(0L);
+            useTimeLogs = new ArrayList<>(8);
+            THREAD_LOCAL.set(id);
+            ID_USE_TIME_LOG.put(id, useTimeLogs);
         } else {
+            useTimeLogs = ID_USE_TIME_LOG.get(baseId);
             useTimeLog.setPId(useTimeLogs.get(useTimeLogs.size() - 1).getId());
         }
-        ThreadLocalUtil.addUseTimeLogs(useTimeLog);
+        useTimeLogs.add(useTimeLog);
         long startTime = System.currentTimeMillis();
         useTimeLog.setStartTime(new Date());
         Object result = joinPoint.proceed();
@@ -119,20 +129,18 @@ public class UseTimeLogAspect {
         Parameter[] parameters = method.getParameters();
         if (ArrayUtils.isNotEmpty(parameters)) {
             int length = parameters.length;
-            String[] args = new String[length];
+            StringBuilder args = new StringBuilder();
             for (int i = 0; i < length; i++) {
-                args[i] = parameters[i].getParameterizedType().getTypeName() + " " + parameters[i].getName();
+                args.append(parameters[i].getParameterizedType().getTypeName()).append(" ").append(parameters[i].getName());
             }
-            useTimeLog.setParameters(args);
+            useTimeLog.setParameters(ArrayUtils.toString(args));
         }
         useTimeLog.setReturnType(method.getReturnType().getName());
         useTimeLog.setModifiers(method.getModifiers());
         if (useTimeLog.getPId() == 0) {
-            useTimeLogs = ThreadLocalUtil.getUseTimeLogs();
-            System.out.println(useTimeLogs);
-            ThreadLocalUtil.delete();
-            useTimeLogs = ThreadLocalUtil.getUseTimeLogs();
-            System.out.println(useTimeLogs);
+            useTimeLogs = ID_USE_TIME_LOG.get(id);
+            useTimeLogService.saveBatch(useTimeLogs, useTimeLogs.size());
+            THREAD_LOCAL.remove();
         }
         return result;
     }

@@ -2,6 +2,7 @@ package com.ultra.aspect;
 
 import com.ultra.dao.entity.UseTimeLog;
 import com.ultra.service.UseTimeLogService;
+import com.ultra.service.impl.UseTimeLogServiceImpl;
 import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -31,6 +32,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @Order(3)
 public class UseTimeLogAspect {
 
+    /**
+     * 忽略的方法
+     */
+    private static final List<String> IGNORE_METHOD = Collections.singletonList("saveBatch");
     @Autowired
     private UseTimeLogService useTimeLogService;
 
@@ -92,9 +97,18 @@ public class UseTimeLogAspect {
      * @throws Throwable 异常
      */
     private Object recordUseTime(ProceedingJoinPoint joinPoint) throws Throwable {
+        Object target = joinPoint.getTarget();
+        Class<?> clazz = target.getClass();
+        Signature signature = joinPoint.getSignature();
+        MethodSignature methodSignature = (MethodSignature) signature;
+        Method method = methodSignature.getMethod();
+        String methodName = method.getName();
+        if (clazz == UseTimeLogServiceImpl.class && IGNORE_METHOD.contains(methodName)) {
+            return joinPoint.proceed();
+        }
         UseTimeLog useTimeLog = new UseTimeLog();
         Long baseId = THREAD_LOCAL.get();
-        long id = System.currentTimeMillis() * 1000L + new Random().nextInt(1000);
+        long id = System.currentTimeMillis() * 1000 + new Random().nextInt(1000);
         useTimeLog.setId(id);
         List<UseTimeLog> useTimeLogs;
         if (baseId == null) {
@@ -112,8 +126,6 @@ public class UseTimeLogAspect {
         Object result = joinPoint.proceed();
         long endTime = System.currentTimeMillis();
         useTimeLog.setUseTime((int) (endTime - startTime));
-        Object target = joinPoint.getTarget();
-        Class<?> clazz = target.getClass();
         if (AopUtils.isAopProxy(clazz) || Proxy.isProxyClass(clazz)) {
             String name;
             Type[] types = clazz.getGenericInterfaces();
@@ -122,16 +134,12 @@ public class UseTimeLogAspect {
         } else {
             useTimeLog.setClassName(clazz.getName());
         }
-        Signature signature = joinPoint.getSignature();
-        MethodSignature methodSignature = (MethodSignature) signature;
-        Method method = methodSignature.getMethod();
-        useTimeLog.setMethodName(method.getName());
+        useTimeLog.setMethodName(methodName);
         Parameter[] parameters = method.getParameters();
         if (ArrayUtils.isNotEmpty(parameters)) {
-            int length = parameters.length;
             StringBuilder args = new StringBuilder();
-            for (int i = 0; i < length; i++) {
-                args.append(parameters[i].getParameterizedType().getTypeName()).append(" ").append(parameters[i].getName());
+            for (Parameter parameter : parameters) {
+                args.append(parameter.getParameterizedType().getTypeName()).append(" ").append(parameter.getName());
             }
             useTimeLog.setParameters(ArrayUtils.toString(args));
         }
@@ -141,6 +149,7 @@ public class UseTimeLogAspect {
             useTimeLogs = ID_USE_TIME_LOG.get(id);
             useTimeLogService.saveBatch(useTimeLogs, useTimeLogs.size());
             THREAD_LOCAL.remove();
+            ID_USE_TIME_LOG.remove(id);
         }
         return result;
     }

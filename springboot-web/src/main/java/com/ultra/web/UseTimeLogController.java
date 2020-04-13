@@ -22,7 +22,7 @@ import java.util.List;
  * @author ${author}
  * @since 2020-04-10
  */
-@Api(tags = {""})
+@Api(tags = {"请求耗时日志"})
 @RestController
 @RequestMapping("/useTimeLog")
 public class UseTimeLogController extends BaseController<UseTimeLogService, UseTimeLog> {

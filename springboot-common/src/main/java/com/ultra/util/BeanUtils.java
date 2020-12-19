@@ -1,26 +1,30 @@
 package com.ultra.util;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.logicalcobwebs.cglib.beans.BeanCopier;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
+ * bean处理工具类
+ *
  * @author admin
  */
 public class BeanUtils {
-    public static ConcurrentHashMap<String, BeanCopier> beanCopierMap = new ConcurrentHashMap<String, BeanCopier>();
 
-    public static void copyProperties(Object source, Object target) {
+    private static final Map<String, BeanCopier> BEAN_COPIER_CACHE = new ConcurrentHashMap<String, BeanCopier>();
+
+    public static void copyBean(Object source, Object target) {
         if (source == null || target == null) {
             throw new RuntimeException("source and target are required.");
         }
         String beanKey = generateKey(source.getClass(), target.getClass());
         BeanCopier copier = null;
-        if (!beanCopierMap.containsKey(beanKey)) {
+        if (!BEAN_COPIER_CACHE.containsKey(beanKey)) {
             copier = BeanCopier.create(source.getClass(), target.getClass(), false);
-            beanCopierMap.put(beanKey, copier);
+            BEAN_COPIER_CACHE.put(beanKey, copier);
         } else {
-            copier = beanCopierMap.get(beanKey);
+            copier = BEAN_COPIER_CACHE.get(beanKey);
         }
         copier.copy(source, target, null);
     }

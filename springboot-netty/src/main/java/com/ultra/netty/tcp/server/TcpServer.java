@@ -55,12 +55,13 @@ public class TcpServer {
             //设置管道工厂
             bootstrap.childHandler(serverChannelInitializer);
             //绑定端口
-            ChannelFuture f = bootstrap.bind(host, port).sync();
-            if (f.isSuccess()) {
-                LOGGER.info("启动Netty服务成功,端口号:{}", port);
-            }
-            //等待服务端监听端口关闭
-            f.channel().closeFuture().sync();
+            bootstrap.bind(host, port).sync();
+//            ChannelFuture f = bootstrap.bind(host, port).sync();
+//            if (f.isSuccess()) {
+//                LOGGER.info("启动Netty服务成功,端口号:{}", port);
+//            }
+//            //等待服务端监听端口关闭
+//            f.channel().closeFuture().sync();
         } catch (Exception e) {
             LOGGER.error("启动Netty服务异常.", e);
         } finally {

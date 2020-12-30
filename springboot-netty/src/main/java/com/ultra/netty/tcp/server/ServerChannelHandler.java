@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Conditional(value = IfRegisterConditional.class)
 public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerChannelHandler.class);
-    private Map<ChannelId, Channel> channelMap = new ConcurrentHashMap<>();
+    private static final Map<ChannelId, Channel> ID_CHANNEL_MAP = new ConcurrentHashMap<>();
 
     /**
      * 建立连接时
@@ -31,7 +31,7 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         Channel channel = ctx.channel();
-        channelMap.put(channel.id(), channel);
+        ID_CHANNEL_MAP.put(channel.id(), channel);
         ctx.fireChannelActive();
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("客户端channelId:{}连接", channel.id());
@@ -43,12 +43,12 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        super.channelInactive(ctx);
         ChannelId id = ctx.channel().id();
-        channelMap.remove(id);
+        ID_CHANNEL_MAP.remove(id);
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("客户端channelId:{}断开连接", id);
         }
+        super.channelInactive(ctx);
     }
 
     /**
@@ -57,18 +57,17 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object obj) throws Exception {
-        super.userEventTriggered(ctx, obj);
         if (obj instanceof IdleStateEvent) {
             IdleStateEvent event = (IdleStateEvent) obj;
             if (event.state().equals(IdleState.READER_IDLE)) {
                 LOGGER.info("Tcp Server长期没收到客户端推送数据");
             } else if (event.state().equals(IdleState.WRITER_IDLE)) {
-                //LOGGER.info("Tcp Server长期未向客户端发送数据");
                 sendMsgToTcpClient("server");
             } else if (event.state().equals(IdleState.ALL_IDLE)) {
                 LOGGER.info("Tcp Server ALL");
             }
         }
+        super.userEventTriggered(ctx, obj);
     }
 
     /**
@@ -89,9 +88,9 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
      * @param msg 消息
      */
     public void sendMsgToTcpClient(String msg) {
-        if (!channelMap.isEmpty()) {
+        if (!ID_CHANNEL_MAP.isEmpty()) {
             LOGGER.info("send message to client:{}", msg);
-            channelMap.forEach((channelId, channel) -> {
+            ID_CHANNEL_MAP.forEach((channelId, channel) -> {
                 if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("channelId:{}", channelId);
                 }

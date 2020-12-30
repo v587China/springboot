@@ -66,25 +66,24 @@ public class JsonUtilTest {
         List<Student> students = new ArrayList<>(1);
         students.add(student);
 
-        String fastJson = FastJsonUtil.beans2Json(students);
-        System.out.println("FastJson: " + fastJson);
-        students = FastJsonUtil.json2Beans(fastJson, Student.class);
-        System.out.println("FastJson: " + students);
+//        String fastJson = FastJsonUtil.beans2Json(students);
+//        System.out.println("FastJson: " + fastJson);
+//        students = FastJsonUtil.json2Beans(fastJson, Student.class);
+//        System.out.println("FastJson: " + students);
 
         String gson = GsonUtil.bean2Json(students);
         System.out.println("Gson: " + gson);
         students = GsonUtil.json2Beans(gson);
         System.out.println("Gson: " + students);
-        students.forEach(System.out::println);
 
-        String jackson = JacksonUtil.bean2Json(students);
-        System.out.println("Jackson: " + jackson);
-        students = JacksonUtil.json2Beans(jackson, Student.class);
-        System.out.println("Jackson: " + students);
-
-        String jsonLib = JsonLibUtil.beans2Json(students);
-        System.out.println("JsonLib: " + jsonLib);
-        students = JsonLibUtil.json2Beans(jsonLib, Student.class);
-        System.out.println("JsonLib: " + students);
+//        String jackson = JacksonUtil.bean2Json(students);
+//        System.out.println("Jackson: " + jackson);
+//        students = JacksonUtil.json2Beans(jackson, Student.class);
+//        System.out.println("Jackson: " + students);
+//
+//        String jsonLib = JsonLibUtil.beans2Json(students);
+//        System.out.println("JsonLib: " + jsonLib);
+//        students = JsonLibUtil.json2Beans(jsonLib, Student.class);
+//        System.out.println("JsonLib: " + students);
     }
 }

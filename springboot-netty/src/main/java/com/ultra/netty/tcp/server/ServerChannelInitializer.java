@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
 
     @Autowired
-    private ServerChannelHandler serverChannelHandler = new ServerChannelHandler();
+    private ServerChannelHandler serverChannelHandler;
 
     @Override
     protected void initChannel(SocketChannel ch) {

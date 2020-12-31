@@ -21,7 +21,8 @@ public class MqttUtilTest {
 
     @Test
     public void publish() {
-        MqttUtil.subscribe(URI, CLIENT_ID_PRE, USERNAME, PASSWORD, TOPIC, mqttCallback);
+        MqttUtil.callback(URI, CLIENT_ID_PRE, USERNAME, PASSWORD, mqttCallback);
+        MqttUtil.subscribe(URI, CLIENT_ID_PRE, USERNAME, PASSWORD, TOPIC);
         MqttUtil.publish(URI, CLIENT_ID_PRE, USERNAME, PASSWORD, TOPIC, content);
 //        while (true) {
 //            MqttUtil.publish(URI, CLIENT_ID_PRE + System.currentTimeMillis(), USERNAME, PASSWORD, TOPIC, content);

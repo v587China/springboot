@@ -16,6 +16,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * TODO
@@ -33,8 +34,8 @@ public class CustomLogAspect {
 
     @Around("@annotation(customLog)")
     public Object doAround(ProceedingJoinPoint joinPoint, CustomLog customLog) throws Throwable {
-        String id = generateKeyBySpEL(customLog.id(), joinPoint);
-        String name = generateKeyBySpEL(customLog.name(), joinPoint);
+        String id = getElValue(customLog.id(), joinPoint);
+        String name = getElValue(customLog.name(), joinPoint);
         logger.info("customLog:{},id:{},name:{}", customLog, id, name);
         return joinPoint.proceed();
     }
@@ -48,14 +49,14 @@ public class CustomLogAspect {
      */
     private DefaultParameterNameDiscoverer nameDiscoverer = new DefaultParameterNameDiscoverer();
 
-    public String generateKeyBySpEL(String spELString, ProceedingJoinPoint joinPoint) {
+    private String getElValue(String elKey, ProceedingJoinPoint joinPoint) {
         // 通过joinPoint获取被注解方法
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();
         // 使用spring的DefaultParameterNameDiscoverer获取方法形参名数组
         String[] paramNames = nameDiscoverer.getParameterNames(method);
         // 解析过后的Spring表达式对象
-        Expression expression = parser.parseExpression(spELString);
+        Expression expression = parser.parseExpression(elKey);
         // spring的表达式上下文对象
         EvaluationContext context = new StandardEvaluationContext();
         // 通过joinPoint获取被注解方法的形参
@@ -70,7 +71,7 @@ public class CustomLogAspect {
              method(Student student)
              那么就可以解析出方法形参的某属性值，return “xiaoming”;
           */
-        return expression.getValue(context).toString();
+        return Objects.requireNonNull(expression.getValue(context)).toString();
     }
 
 }

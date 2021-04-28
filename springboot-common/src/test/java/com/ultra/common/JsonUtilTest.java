@@ -73,7 +73,7 @@ public class JsonUtilTest {
 
         String gson = GsonUtil.bean2Json(students);
         System.out.println("Gson: " + gson);
-        students = GsonUtil.json2Beans(gson);
+        List<Class<Student>> classes = GsonUtil.json2Beans(gson, Student.class);
         System.out.println("Gson: " + students);
 
 //        String jackson = JacksonUtil.bean2Json(students);

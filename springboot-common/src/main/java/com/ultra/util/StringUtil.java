@@ -1,9 +1,13 @@
 package com.ultra.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
+ * 字符串工具类，通过继承org.apache.commons.lang3.StringUtils实现的工具类，方便升级、切换工具类源等
+ *
  * @author admin
  */
-public class StringUtil {
+public class StringUtil extends StringUtils {
     /**
      * 字符串转16进制字符串,默认使用空格连接
      *
@@ -79,40 +83,5 @@ public class StringUtil {
         return null;
     }
 
-    /**
-     * 判断字符串是否为空(去空格后)
-     *
-     * @param string 参数
-     */
-    public static boolean isBlank(String string) {
-        return string == null || string.equals("") || string.trim().equals("");
-    }
-
-    /**
-     * 判断字符串是否不为空(去空格后)
-     *
-     * @param string 参数
-     */
-    public static boolean isNotBlank(String string) {
-        return !isBlank(string);
-    }
-
-    /**
-     * 判断字符串是否为空(不去空格)
-     *
-     * @param string 参数
-     */
-    public static boolean isEmpty(String string) {
-        return string == null || string.equals("");
-    }
-
-    /**
-     * 判断字符串是否不为空(不去空格)
-     *
-     * @param string 参数
-     */
-    public static boolean isNotEmpty(String string) {
-        return !isEmpty(string);
-    }
 
 }

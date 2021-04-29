@@ -1,6 +1,7 @@
 package com.ultra.aspect;
 
 import com.ultra.bo.RequestLog;
+import com.ultra.conditional.BeanRegisterConditional;
 import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -9,6 +10,7 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -33,6 +35,7 @@ import java.util.Map;
 @Aspect
 @Component
 @Order(2)
+@Conditional(BeanRegisterConditional.class)
 public class RequestLogAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(RequestLogAspect.class);
 

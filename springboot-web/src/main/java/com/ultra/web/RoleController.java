@@ -4,6 +4,7 @@ package com.ultra.web;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ultra.annotation.LogAudit;
 import com.ultra.dao.entity.Role;
 import com.ultra.service.RoleService;
 import com.ultra.validated.UpdateGroup;
@@ -62,6 +63,7 @@ public class RoleController extends BaseController<RoleService, Role> {
 
     @ApiOperation(value = "添加")
     @PostMapping
+    @LogAudit(moduleId = "02", operateId = "01", id = "#entity.id", name = "#entity.name")
     public boolean save(@Validated @RequestBody Role entity, Errors errors) {
         return super.save(entity);
     }

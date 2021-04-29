@@ -40,7 +40,7 @@ public class GsonUtil {
      * @return 对象集合
      */
     public static <T> List<T> json2Beans(String jsonString, T t) {
-        return GSON.fromJson(jsonString, new TypeToken<List<T>>() {
+        return GSON.fromJson(jsonString, new TypeToken<T>() {
         }.getType());
     }
 

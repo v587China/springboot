@@ -28,7 +28,7 @@ public class PictureUtil {
     public final static String FILE_JPEG = "jpeg";
     public final static String FILE_JPG = "jpg";
 
-    public final static short TYPE_UNKNOW = 0;
+    public final static short TYPE_UNKNOWN = 0;
     public final static short TYPE_SVG = 1;
     public final static short TYPE_IMAGE = 2;
     public final static short TYPE_GEOJSON = 3;
@@ -37,7 +37,6 @@ public class PictureUtil {
      * 读取文件获取底图坐标范围
      *
      * @param fileName
-     * @return
      */
     public static Double[] getExtents(String fileName) {
         File file = null;
@@ -68,7 +67,7 @@ public class PictureUtil {
                 || fileName.endsWith(FILE_JPG) || fileName.endsWith(FILE_JPG.toUpperCase())) {
             return TYPE_IMAGE;
         }
-        return TYPE_UNKNOW;
+        return TYPE_UNKNOWN;
     }
 
     public static Double[] handlerPicture(File file) {
@@ -96,7 +95,6 @@ public class PictureUtil {
      * 根据文件获取底图坐标范围 备用方法
      *
      * @param file
-     * @return
      */
     private static Double[] svgHandlerEx(File file) {
         DocumentBuilderFactory factory = null;

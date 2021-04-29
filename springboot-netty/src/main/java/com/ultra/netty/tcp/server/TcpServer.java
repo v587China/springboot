@@ -1,8 +1,7 @@
 package com.ultra.netty.tcp.server;
 
-import com.ultra.conditional.IfRegisterConditional;
+import com.ultra.conditional.BeanRegisterConditional;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -22,11 +21,11 @@ import javax.annotation.PostConstruct;
  * @author admin
  */
 @Component
-@Conditional(value = IfRegisterConditional.class)
+@Conditional(value = BeanRegisterConditional.class)
 public class TcpServer {
     private static final Logger LOGGER = LoggerFactory.getLogger(TcpServer.class);
     @Autowired
-    private ServerChannelInitializer serverChannelInitializer;
+    private TcpServerChannelInitializer tcpServerChannelInitializer;
     @Value("${netty.tcp.server.host}")
     private String host;
     @Value("${netty.tcp.server.port:10002}")
@@ -53,7 +52,7 @@ public class TcpServer {
             //长连接
             bootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
             //设置管道工厂
-            bootstrap.childHandler(serverChannelInitializer);
+            bootstrap.childHandler(tcpServerChannelInitializer);
             //绑定端口
             bootstrap.bind(host, port).sync();
 //            ChannelFuture f = bootstrap.bind(host, port).sync();

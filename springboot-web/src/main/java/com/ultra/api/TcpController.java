@@ -1,9 +1,9 @@
 package com.ultra.api;
 
-import com.ultra.conditional.IfRegisterConditional;
+import com.ultra.conditional.BeanRegisterConditional;
 import com.ultra.excetion.TcpToServerException;
-import com.ultra.netty.tcp.client.ClientChannelHandler;
-import com.ultra.netty.tcp.server.ServerChannelHandler;
+import com.ultra.netty.tcp.client.TcpClientChannelHandler;
+import com.ultra.netty.tcp.server.TcpServerChannelHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class TcpController {
 
     @Autowired(required = false)
-    private ClientChannelHandler clientChannelHandler;
+    private TcpClientChannelHandler clientChannelHandler;
     @Autowired(required = false)
-    private ServerChannelHandler serverChannelHandler;
+    private TcpServerChannelHandler serverChannelHandler;
 
     @GetMapping("/toServer")
-    @Conditional(value = IfRegisterConditional.class)
+    @Conditional(value = BeanRegisterConditional.class)
     public void sendMsgToServer(String msg) {
         try {
             clientChannelHandler.sendMsgToTcpServer(msg);

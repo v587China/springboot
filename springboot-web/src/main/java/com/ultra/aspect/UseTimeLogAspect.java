@@ -1,5 +1,6 @@
 package com.ultra.aspect;
 
+import com.ultra.conditional.BeanRegisterConditional;
 import com.ultra.dao.entity.UseTimeLog;
 import com.ultra.service.UseTimeLogService;
 import com.ultra.service.impl.UseTimeLogServiceImpl;
@@ -12,6 +13,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Aspect
 @Component
 @Order(3)
+@Conditional(BeanRegisterConditional.class)
 public class UseTimeLogAspect {
 
     /**

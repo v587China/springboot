@@ -1,6 +1,6 @@
 package com.ultra.netty.tcp.client;
 
-import com.ultra.conditional.IfRegisterConditional;
+import com.ultra.conditional.BeanRegisterConditional;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @author admin
  */
 @Component
-@Conditional(value = IfRegisterConditional.class)
+@Conditional(value = BeanRegisterConditional.class)
 public class TcpClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TcpClient.class);
@@ -34,7 +34,7 @@ public class TcpClient {
     @Value("${tcp.server.port}")
     private int port;
     @Autowired
-    private ClientChannelInitializer clientChannelInitializer;
+    private TcpClientChannelInitializer clientChannelInitializer;
 
     /**
      * 通过nio方式来接收连接和处理连接

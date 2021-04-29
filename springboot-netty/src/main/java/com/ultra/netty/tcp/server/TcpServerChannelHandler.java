@@ -1,6 +1,6 @@
 package com.ultra.netty.tcp.server;
 
-import com.ultra.conditional.IfRegisterConditional;
+import com.ultra.conditional.BeanRegisterConditional;
 import com.ultra.util.StringUtil;
 import io.netty.channel.*;
 import io.netty.handler.timeout.IdleState;
@@ -20,9 +20,9 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Component
 @ChannelHandler.Sharable
-@Conditional(value = IfRegisterConditional.class)
-public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServerChannelHandler.class);
+@Conditional(value = BeanRegisterConditional.class)
+public class TcpServerChannelHandler extends ChannelInboundHandlerAdapter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TcpServerChannelHandler.class);
     private static final Map<ChannelId, Channel> ID_CHANNEL_MAP = new ConcurrentHashMap<>();
 
     /**

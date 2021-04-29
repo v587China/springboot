@@ -1,6 +1,6 @@
 package com.ultra.netty.tcp.server;
 
-import com.ultra.conditional.IfRegisterConditional;
+import com.ultra.conditional.BeanRegisterConditional;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -19,11 +19,11 @@ import java.util.concurrent.TimeUnit;
  * @author admin
  */
 @Component
-@Conditional(value = IfRegisterConditional.class)
-public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
+@Conditional(value = BeanRegisterConditional.class)
+public class TcpServerChannelInitializer extends ChannelInitializer<SocketChannel> {
 
     @Autowired
-    private ServerChannelHandler serverChannelHandler;
+    private TcpServerChannelHandler tcpServerChannelHandler;
 
     @Override
     protected void initChannel(SocketChannel ch) {
@@ -35,7 +35,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
         //IdleStateHandler心跳机制,如果超时触发Handle中userEventTrigger()方法
         pipeline.addLast(new IdleStateHandler(60, 20, 0, TimeUnit.SECONDS));
         //处理类
-        pipeline.addLast(serverChannelHandler);
+        pipeline.addLast(tcpServerChannelHandler);
     }
 
 }

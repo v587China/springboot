@@ -20,11 +20,9 @@ import java.util.List;
 
 
 /**
- * <p>
- * 角色 前端控制器
- * </p>
+ * 角色
  *
- * @author ${author}
+ * @author fan
  * @since 2019-09-06
  */
 @Api(tags = {"角色"})

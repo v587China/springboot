@@ -6,10 +6,10 @@ import com.ultra.conditional.BeanRegisterConditional;
 import com.ultra.constant.LogModuleEnum;
 import com.ultra.constant.LogOperateEnum;
 import com.ultra.util.ArrayUtil;
+import com.ultra.util.StringUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,13 +35,6 @@ public class LogAuditAspect {
     private static final Logger logger = LoggerFactory.getLogger(LogAuditAspect.class);
 
     /**
-     * 使用该注解的地方作为切点
-     */
-    @Pointcut("@annotation(com.ultra.annotation.LogAudit)")
-    public void logAuditPointcut() {
-    }
-
-    /**
      * 获取注解参数当做方法入参
      *
      * @param joinPoint 切点方法
@@ -51,11 +44,15 @@ public class LogAuditAspect {
      */
     @Around("@annotation(logAudit)")
     public Object doAround(ProceedingJoinPoint joinPoint, LogAudit logAudit) throws Throwable {
-        Object proceed = null;
+        Object proceed;
         LogDetails logDetails = new LogDetails();
         try {
-            // 伪代码实现获取用户
-            String account = "admin";
+            // 调度之类没有账号的可以手动指定account
+            String account = logAudit.account();
+            if (StringUtil.isBlank(account)) {
+                // 伪代码实现获取当前账号
+                account = "admin";
+            }
             String operateId = logAudit.operateId();
             String moduleId = logAudit.moduleId();
             String id = getElValue(logAudit.id(), joinPoint);
@@ -72,6 +69,7 @@ public class LogAuditAspect {
             logDetails.setResult("失败");
             throw throwable;
         } finally {
+            //入库
             logger.info("logDetails:{}", logDetails);
         }
         return proceed;

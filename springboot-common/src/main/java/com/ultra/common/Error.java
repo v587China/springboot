@@ -53,4 +53,12 @@ public class Error {
     public static Error buildError(int code, String mess) {
         return new Error(code, mess);
     }
+
+    @Override
+    public String toString() {
+        return "Error{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

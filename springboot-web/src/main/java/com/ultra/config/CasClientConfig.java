@@ -59,8 +59,6 @@ public class CasClientConfig {
     /**
      * Cas30ProxyReceivingTicketValidationFilter 验证过滤器
      * 该过滤器负责对Ticket的校验工作，必须启用它
-     *
-     * @return
      */
     @Bean
     public FilterRegistrationBean filterValidationRegistration() {
@@ -85,8 +83,6 @@ public class CasClientConfig {
 
     /**
      * AuthenticationFilter 授权过滤器
-     *
-     * @return
      */
     @Bean
     public FilterRegistrationBean filterAuthenticationRegistration() {
@@ -117,8 +113,6 @@ public class CasClientConfig {
      * <p>
      * 该过滤器使得开发者可以通过org.jasig.cas.client.util.AssertionHolder来获取用户的登录名。
      * 比如AssertionHolder.getAssertion().getPrincipal().getName()。
-     *
-     * @return
      */
     @Bean
     public FilterRegistrationBean filterAssertionThreadLocalRegistration() {
@@ -135,8 +129,6 @@ public class CasClientConfig {
      * HttpServletRequestWrapperFilter wraper过滤器
      * 该过滤器负责实现HttpServletRequest请求的包裹，
      * 比如允许开发者通过HttpServletRequest的getRemoteUser()方法获得SSO登录用户的登录名，可选配置。
-     *
-     * @return
      */
     @Bean
     public FilterRegistrationBean filterWrapperRegistration() {

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ultra.common.Result;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -46,43 +47,41 @@ public abstract class BaseController<M extends IService<T>, T> {
     /**
      * 新增
      */
-    boolean save(T t) {
-        return baseService.save(t);
+    Result save(T t) {
+        return Result.ok(baseService.save(t));
     }
 
-    boolean saveBatch(List<T> list) {
-        return baseService.saveBatch(list);
+    Result saveBatch(List<T> list) {
+        return Result.ok(baseService.saveBatch(list));
     }
 
     /**
      * 根据主键修改
      *
      * @param t
-     * @return
      */
-    boolean updateById(T t) {
-        return baseService.updateById(t);
+    Result updateById(T t) {
+        return Result.ok(baseService.updateById(t));
     }
 
-    boolean updateBatchById(List<T> list) {
-        return baseService.updateBatchById(list);
+    Result updateBatchById(List<T> list) {
+        return Result.ok(baseService.updateBatchById(list));
     }
 
     /**
      * 根据主键删除
      *
      * @param id
-     * @return
      */
     private boolean removeById(Serializable id) {
         return baseService.removeById(id);
     }
 
-    boolean removeByIds(List<? extends Serializable> ids) {
+    Result removeByIds(List<? extends Serializable> ids) {
         if (ids.size() == 1) {
-            return removeById(ids.get(0));
+            return Result.ok(removeById(ids.get(0)));
         }
-        return baseService.removeByIds(ids);
+        return Result.ok(baseService.removeByIds(ids));
     }
 
     /**

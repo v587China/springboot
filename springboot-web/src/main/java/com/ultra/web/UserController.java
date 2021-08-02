@@ -4,6 +4,7 @@ package com.ultra.web;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ultra.common.Result;
 import com.ultra.dao.entity.User;
 import com.ultra.service.UserService;
 import com.ultra.validated.InsertGroup;
@@ -61,7 +62,7 @@ public class UserController extends BaseController<UserService, User> {
 
     @ApiOperation(value = "添加")
     @PostMapping
-    public boolean save(@Validated({InsertGroup.class}) @RequestBody User entity, Errors errors) {
+    public Result save(@Validated({InsertGroup.class}) @RequestBody User entity, Errors errors) {
         return super.save(entity);
     }
 

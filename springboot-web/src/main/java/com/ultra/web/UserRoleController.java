@@ -4,6 +4,7 @@ package com.ultra.web;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ultra.common.Result;
 import com.ultra.dao.entity.UserRole;
 import com.ultra.service.UserRoleService;
 import com.ultra.validated.UpdateGroup;
@@ -16,7 +17,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 
 /**
@@ -48,9 +48,9 @@ public class UserRoleController extends BaseController<UserRoleService, UserRole
     @ApiOperation(value = "分页搜索查询")
     @GetMapping("/page")
     public IPage<UserRole> page(@RequestParam(defaultValue = "1", required = false) int current,
-            @RequestParam(defaultValue = "10", required = false) int size,
-            @RequestParam(required = false) String[] descs, @RequestParam(required = false) String[] ascs,
-            @RequestParam(required = false) String search) {
+                                @RequestParam(defaultValue = "10", required = false) int size,
+                                @RequestParam(required = false) String[] descs, @RequestParam(required = false) String[] ascs,
+                                @RequestParam(required = false) String search) {
         Page<UserRole> page = new Page<UserRole>(current, size);
         page.setAsc(ascs);
         page.setDesc(descs);
@@ -63,19 +63,19 @@ public class UserRoleController extends BaseController<UserRoleService, UserRole
 
     @ApiOperation(value = "添加")
     @PostMapping
-    public boolean save(@Validated @RequestBody UserRole entity, Errors errors) {
+    public Result save(@Validated @RequestBody UserRole entity, Errors errors) {
         return super.save(entity);
     }
 
     @ApiOperation(value = "更新")
     @PutMapping
-    public boolean updateById(@Validated({ UpdateGroup.class }) @RequestBody UserRole entity, Errors errors) {
+    public Result updateById(@Validated({UpdateGroup.class}) @RequestBody UserRole entity, Errors errors) {
         return super.updateById(entity);
     }
 
     @ApiOperation(value = "批量删除")
     @DeleteMapping
-    public boolean removeIds(@RequestParam List<Long> ids) {
+    public Result removeIds(@RequestParam List<Long> ids) {
         Assert.notEmpty(ids, "ids can't be empty.");
         return super.removeByIds(ids);
     }

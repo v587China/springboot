@@ -2,8 +2,11 @@ package com.ultra.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 
+import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author admin
@@ -50,5 +53,23 @@ public class FastJsonUtil {
      */
     public static String beans2Json(Object list) {
         return JSONObject.toJSONString(list);
+    }
+
+    /**
+     * 常用json转Map的Map类型
+     */
+    public final static Type MAP_STRING_LONG = new TypeReference<Map<String, Long>>() {
+    }.getType();
+    public final static Type MAP_STRING_DOUBLE = new TypeReference<Map<String, Double>>() {
+    }.getType();
+
+    /**
+     * json串转Map
+     *
+     * @param jsonString json串
+     * @return 对象
+     */
+    public static <T> Map<String, T> json2Map(String jsonString, Type type) {
+        return JSON.parseObject(jsonString, type);
     }
 }

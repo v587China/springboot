@@ -4,6 +4,7 @@ package com.ultra.web;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ultra.common.Result;
 import com.ultra.dao.entity.RoleResource;
 import com.ultra.service.RoleResourceService;
 import com.ultra.validated.UpdateGroup;
@@ -62,19 +63,19 @@ public class RoleResourceController extends BaseController<RoleResourceService, 
 
     @ApiOperation(value = "添加")
     @PostMapping
-    public boolean save(@Validated @RequestBody RoleResource entity, Errors errors) {
+    public Result save(@Validated @RequestBody RoleResource entity, Errors errors) {
         return super.save(entity);
     }
 
     @ApiOperation(value = "更新")
     @PutMapping
-    public boolean updateById(@Validated({UpdateGroup.class}) @RequestBody RoleResource entity, Errors errors) {
+    public Result updateById(@Validated({UpdateGroup.class}) @RequestBody RoleResource entity, Errors errors) {
         return super.updateById(entity);
     }
 
     @ApiOperation(value = "批量删除")
     @DeleteMapping
-    public boolean removeIds(@RequestParam List<Long> ids) {
+    public Result removeIds(@RequestParam List<Long> ids) {
         Assert.notEmpty(ids, "ids can't be empty.");
         return super.removeByIds(ids);
     }

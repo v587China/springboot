@@ -1,6 +1,6 @@
 package com.ultra.excetion;
 
-import com.ultra.common.Error;
+import com.ultra.common.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,24 +18,24 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Error illegalArgumentException(IllegalArgumentException exception) {
-        return Error.illegalField(exception.getMessage());
+    public Result illegalArgumentException(IllegalArgumentException exception) {
+        return Result.illegalField(exception.getMessage());
     }
 
     @ExceptionHandler(TcpToServerException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Error illegalArgumentException(TcpToServerException exception) {
+    public Result illegalArgumentException(TcpToServerException exception) {
         //业务异常
         logger.error("", exception);
         //原始异常
         logger.error("", exception.getCause());
-        return Error.errorServer(exception.getMessage());
+        return Result.errorServer(exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Error exception(Exception exception) {
+    public Result exception(Exception exception) {
         logger.error("", exception);
-        return Error.errorServer(exception.getMessage());
+        return Result.errorServer(exception.getMessage());
     }
 }

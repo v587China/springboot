@@ -192,7 +192,6 @@
         <module>springboot-mybatis-plus</module>
         <module>springboot-netty</module>
         <module>springboot-mqtt</module>
-        <module>springboot-redis</module>
     </modules>
 
 </project>

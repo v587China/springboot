@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ultra.constant.LengthValidatedConstant;
-import com.ultra.constant.RegexpConstant;
 import com.ultra.validated.InsertGroup;
 import com.ultra.validated.UpdateGroup;
 import io.swagger.annotations.ApiModel;
@@ -14,11 +12,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -46,8 +42,8 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "用户名")
     @NotBlank(groups = {InsertGroup.class}, message = "{attr.required}")
-    @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
-    @Pattern(regexp = RegexpConstant.NAME_REGEXP, message = "{attr.illegal}")
+//    @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
+//    @Pattern(regexp = RegexpConstant.NAME_REGEXP, message = "{attr.illegal}")
     private String username;
 
     /**
@@ -55,19 +51,19 @@ public class User implements Serializable {
      */
     @ApiModelProperty(value = "密码")
     @NotBlank(groups = {InsertGroup.class}, message = "{attr.required}")
-    @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
+//    @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
     @JsonIgnore
     private String password;
 
     @ApiModelProperty(value = "邮箱")
     @NotBlank(groups = {InsertGroup.class}, message = "{attr.required}")
-    @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
-    @Pattern(regexp = RegexpConstant.EMAIL_REGEXP, message = "{attr.illegal}")
+//    @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
+//    @Pattern(regexp = RegexpConstant.EMAIL_REGEXP, message = "{attr.illegal}")
     private String email;
 
     @ApiModelProperty(value = "地址")
     @NotBlank(groups = {InsertGroup.class}, message = "{attr.required}")
-    @Length(min = LengthValidatedConstant.PASSWORD_MIN_LENGTH, max = LengthValidatedConstant.PASSWORD_MAX_LENGTH, message = "{attr.range.length}")
+//    @Length(min = LengthValidatedConstant.PASSWORD_MIN_LENGTH, max = LengthValidatedConstant.PASSWORD_MAX_LENGTH, message = "{attr.range.length}")
     private String address;
 
     @ApiModelProperty(value = "年龄")
@@ -87,7 +83,7 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "备注")
     @NotBlank(message = "{attr.required}")
-    @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
+    //@Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
     private String note;
 
     @ApiModelProperty(value = "创建时间")

@@ -1,5 +1,6 @@
 package com.ultra.aspect;
 
+import com.ultra.util.ValidUtil;
 import org.apache.commons.lang.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -12,8 +13,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-
-import com.ultra.util.ValidUtil;
 
 /**
  * HibernateValidator错误结果处理切面

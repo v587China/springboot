@@ -1,19 +1,15 @@
 package com.ultra.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.ultra.constant.LengthValidatedConstant;
-import com.ultra.constant.RegexpConstant;
 import com.ultra.validated.UpdateGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
@@ -40,8 +36,8 @@ public class Role implements Serializable {
 
     @ApiModelProperty(value = "名称")
     @NotBlank(message = "{attr.required}")
-    @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
-    @Pattern(regexp = RegexpConstant.NAME_REGEXP, message = "{attr.illegal}")
+//    @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
+    //@Pattern(regexp = RegexpConstant.NAME_REGEXP, message = "{attr.illegal}")
     private String name;
 
 

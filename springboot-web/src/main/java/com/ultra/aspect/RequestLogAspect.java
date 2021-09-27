@@ -1,7 +1,7 @@
 package com.ultra.aspect;
 
+import com.ultra.assembly.BeanRegisterConditional;
 import com.ultra.bo.RequestLog;
-import com.ultra.conditional.BeanRegisterConditional;
 import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;

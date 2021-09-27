@@ -1,7 +1,7 @@
 package com.ultra.api;
 
-import com.ultra.conditional.BeanRegisterConditional;
 import com.ultra.excetion.TcpToServerException;
+import com.ultra.netty.assembly.BeanRegisterConditional;
 import com.ultra.netty.tcp.client.TcpClientChannelHandler;
 import com.ultra.netty.tcp.server.TcpServerChannelHandler;
 import org.springframework.beans.factory.annotation.Autowired;

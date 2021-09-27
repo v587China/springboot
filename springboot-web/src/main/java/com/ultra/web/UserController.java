@@ -68,13 +68,13 @@ public class UserController extends BaseController<UserService, User> {
 
     @ApiOperation(value = "更新")
     @PutMapping
-    public boolean updateById(@Validated({UpdateGroup.class}) @RequestBody User entity, Errors errors) {
+    public Result updateById(@Validated({UpdateGroup.class}) @RequestBody User entity, Errors errors) {
         return super.updateById(entity);
     }
 
     @ApiOperation(value = "批量删除")
     @DeleteMapping
-    public boolean removeIds(@RequestParam List<Long> ids) {
+    public Result removeIds(@RequestParam List<Long> ids) {
         Assert.notEmpty(ids, "ids can't be empty.");
         return super.removeByIds(ids);
     }

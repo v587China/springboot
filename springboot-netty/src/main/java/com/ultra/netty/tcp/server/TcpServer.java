@@ -1,6 +1,6 @@
 package com.ultra.netty.tcp.server;
 
-import com.ultra.conditional.BeanRegisterConditional;
+import com.ultra.netty.assembly.BeanRegisterConditional;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;

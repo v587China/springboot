@@ -1,7 +1,7 @@
 package com.ultra.config;
 
+import com.ultra.assembly.BeanRegisterConditional;
 import com.ultra.bo.CasConfig;
-import com.ultra.conditional.BeanRegisterConditional;
 import org.jasig.cas.client.authentication.AuthenticationFilter;
 import org.jasig.cas.client.session.SingleSignOutFilter;
 import org.jasig.cas.client.session.SingleSignOutHttpSessionListener;

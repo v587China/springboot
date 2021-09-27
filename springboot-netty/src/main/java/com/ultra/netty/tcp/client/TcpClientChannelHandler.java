@@ -1,6 +1,6 @@
 package com.ultra.netty.tcp.client;
 
-import com.ultra.conditional.BeanRegisterConditional;
+import com.ultra.netty.assembly.BeanRegisterConditional;
 import com.ultra.util.StringUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;

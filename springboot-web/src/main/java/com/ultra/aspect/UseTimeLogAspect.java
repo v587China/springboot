@@ -1,6 +1,6 @@
 package com.ultra.aspect;
 
-import com.ultra.conditional.BeanRegisterConditional;
+import com.ultra.assembly.BeanRegisterConditional;
 import com.ultra.dao.entity.UseTimeLog;
 import com.ultra.service.UseTimeLogService;
 import com.ultra.service.impl.UseTimeLogServiceImpl;
@@ -39,12 +39,10 @@ public class UseTimeLogAspect {
      * 忽略的方法
      */
     private static final List<String> IGNORE_METHOD = Collections.singletonList("saveBatch");
+    private static final ThreadLocal<Long> THREAD_LOCAL = new ThreadLocal<>();
+    private static final Map<Long, List<UseTimeLog>> ID_USE_TIME_LOG = new ConcurrentHashMap<>();
     @Autowired
     private UseTimeLogService useTimeLogService;
-
-    private static final ThreadLocal<Long> THREAD_LOCAL = new ThreadLocal<>();
-
-    private static final Map<Long, List<UseTimeLog>> ID_USE_TIME_LOG = new ConcurrentHashMap<>();
 
     @Pointcut("execution(public * com.ultra.web.*.*(..))")
     public void webLog() {

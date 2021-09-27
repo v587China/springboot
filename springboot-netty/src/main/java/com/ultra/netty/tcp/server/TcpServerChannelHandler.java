@@ -1,6 +1,6 @@
 package com.ultra.netty.tcp.server;
 
-import com.ultra.conditional.BeanRegisterConditional;
+import com.ultra.netty.assembly.BeanRegisterConditional;
 import com.ultra.util.StringUtil;
 import io.netty.channel.*;
 import io.netty.handler.timeout.IdleState;

@@ -1,8 +1,8 @@
 package com.ultra.aspect;
 
 import com.ultra.annotation.LogAudit;
+import com.ultra.assembly.BeanRegisterConditional;
 import com.ultra.bo.LogDetails;
-import com.ultra.conditional.BeanRegisterConditional;
 import com.ultra.constant.LogModuleEnum;
 import com.ultra.constant.LogOperateEnum;
 import com.ultra.util.ArrayUtil;
@@ -33,6 +33,14 @@ import java.lang.reflect.Method;
 @Conditional(BeanRegisterConditional.class)
 public class LogAuditAspect {
     private static final Logger logger = LoggerFactory.getLogger(LogAuditAspect.class);
+    /**
+     * 用于SpEL表达式解析.
+     */
+    private SpelExpressionParser parser = new SpelExpressionParser();
+    /**
+     * 用于获取方法参数定义名字.
+     */
+    private DefaultParameterNameDiscoverer nameDiscoverer = new DefaultParameterNameDiscoverer();
 
     /**
      * 获取注解参数当做方法入参
@@ -74,15 +82,6 @@ public class LogAuditAspect {
         }
         return proceed;
     }
-
-    /**
-     * 用于SpEL表达式解析.
-     */
-    private SpelExpressionParser parser = new SpelExpressionParser();
-    /**
-     * 用于获取方法参数定义名字.
-     */
-    private DefaultParameterNameDiscoverer nameDiscoverer = new DefaultParameterNameDiscoverer();
 
     private String getElValue(String elKey, ProceedingJoinPoint joinPoint) {
         // 通过joinPoint获取被注解方法

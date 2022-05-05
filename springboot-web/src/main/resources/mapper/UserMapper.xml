@@ -3,7 +3,7 @@
 <mapper namespace="com.ultra.dao.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ultra.dao.entity.User">
+    <resultMap id="BaseResultMap" type="com.ultra.entity.User">
         <id column="id" property="id" />
         <result column="username" property="username" />
         <result column="password" property="password" />

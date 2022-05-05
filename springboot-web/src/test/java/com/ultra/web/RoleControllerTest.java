@@ -2,8 +2,8 @@ package com.ultra.web;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ultra.dao.entity.Role;
-import com.ultra.service.RoleService;
+import com.ultra.entity.User;
+import com.ultra.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,10 @@ import java.util.List;
 public class RoleControllerTest extends BaseTest {
 
     @Autowired
-    protected RoleService roleService;
+    protected UserService userService;
 
 
-    void forEach(List<Role> tList) {
+    void forEach(List<User> tList) {
         if (CollectionUtils.isNotEmpty(tList)) {
             tList.forEach((t) -> {
                 System.out.println(t);
@@ -30,19 +30,19 @@ public class RoleControllerTest extends BaseTest {
 
     @Test
     public void getById() {
-        System.out.println(roleService.getById(1L));
+        System.out.println(userService.getById(1L));
     }
 
     @Test
     public void list() {
-        List<Role> roles = roleService.list(null);
+        List<User> roles = userService.list(null);
         forEach(roles);
     }
 
     @Test
     public void page() {
-        IPage<Role> iPage = new Page<>();
-        roleService.page(iPage);
+        IPage<User> iPage = new Page<>();
+        userService.page(iPage);
         if (iPage != null) {
             System.out.println(iPage.getCurrent());
             System.out.println(iPage.getPages());

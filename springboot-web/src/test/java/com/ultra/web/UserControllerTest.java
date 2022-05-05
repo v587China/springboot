@@ -1,15 +1,13 @@
 package com.ultra.web;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ultra.dao.entity.User;
+import com.ultra.entity.User;
 import com.ultra.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**

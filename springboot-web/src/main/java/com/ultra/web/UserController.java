@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ultra.common.Result;
-import com.ultra.dao.entity.User;
+import com.ultra.entity.User;
 import com.ultra.service.UserService;
 import com.ultra.validated.InsertGroup;
 import com.ultra.validated.UpdateGroup;

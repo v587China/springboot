@@ -1,7 +1,7 @@
 package com.ultra.aspect;
 
 import com.ultra.assembly.BeanRegisterConditional;
-import com.ultra.dao.entity.UseTimeLog;
+import com.ultra.entity.UseTimeLog;
 import com.ultra.service.UseTimeLogService;
 import com.ultra.service.impl.UseTimeLogServiceImpl;
 import org.apache.commons.lang3.ArrayUtils;

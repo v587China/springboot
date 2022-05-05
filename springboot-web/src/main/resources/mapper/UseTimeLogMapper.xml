@@ -3,7 +3,7 @@
 <mapper namespace="com.ultra.dao.UseTimeLogMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ultra.dao.entity.UseTimeLog">
+    <resultMap id="BaseResultMap" type="com.ultra.entity.UseTimeLog">
         <id column="id" property="id" />
         <result column="p_id" property="pId" />
         <result column="class_name" property="className" />

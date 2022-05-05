@@ -4,7 +4,7 @@ package com.ultra.web;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ultra.dao.entity.UseTimeLog;
+import com.ultra.entity.UseTimeLog;
 import com.ultra.service.UseTimeLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

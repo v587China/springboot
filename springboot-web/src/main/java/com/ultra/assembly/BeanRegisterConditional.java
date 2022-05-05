@@ -3,7 +3,6 @@ package com.ultra.assembly;
 import com.ultra.aspect.LogAuditAspect;
 import com.ultra.aspect.RequestLogAspect;
 import com.ultra.aspect.UseTimeLogAspect;
-import com.ultra.config.CasClientConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
@@ -29,7 +28,6 @@ public class BeanRegisterConditional implements Condition {
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
         if (!isInit) {
             Environment environment = conditionContext.getEnvironment();
-            initCasClient(environment);
             initLogAudit(environment);
             initLogRequest(environment);
             initLogTime(environment);
@@ -65,10 +63,4 @@ public class BeanRegisterConditional implements Condition {
         }
     }
 
-    private void initCasClient(Environment environment) {
-        boolean casClientSwitch = Boolean.parseBoolean(environment.getProperty("cas.client.switch", "false"));
-        if (casClientSwitch) {
-            REGISTERED_BEANS.add(CasClientConfig.class.getName());
-        }
-    }
 }

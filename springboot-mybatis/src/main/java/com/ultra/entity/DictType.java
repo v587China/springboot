@@ -1,8 +1,14 @@
 package com.ultra.entity;
 
+import com.ultra.constant.FormValidatedConstant;
+import com.ultra.validated.InsertGroup;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -12,10 +18,13 @@ public class DictType {
     /**
      * 主键
      */
+
     private Long id;
     /**
      * 名称
      */
+    @NotBlank(groups = {InsertGroup.class}, message = "{attr.required}")
+    @Length(min = FormValidatedConstant.COMMON_STR_MIN_LENGTH, max = FormValidatedConstant.COMMON_STR_MAX_LENGTH, message = "{attr.range.length}")
     private String name;
     /**
      * 备注
@@ -24,9 +33,9 @@ public class DictType {
     /**
      * 创建时间
      */
-    private Long createTime;
+    private Date gmtCreate;
     /**
      * 更新时间
      */
-    private Long updateTime;
+    private Date gmtModified;
 }

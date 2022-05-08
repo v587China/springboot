@@ -3,17 +3,17 @@ package com.ultra.aspect;
 import com.ultra.assembly.BeanRegisterConditional;
 import com.ultra.bo.RequestLog;
 import io.swagger.annotations.ApiOperation;
-import org.aspectj.lang.JoinPoint;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -22,42 +22,39 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 请求统一日志处理切面
  *
  * @author admin
  */
+@Slf4j
 @Aspect
 @Component
 @Order(2)
 @Conditional(BeanRegisterConditional.class)
 public class RequestLogAspect {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RequestLogAspect.class);
 
     @Pointcut("execution(public * com.ultra.web.*.*(..))")
     public void requestLog() {
     }
 
-    @Before("requestLog()")
-    public void doBefore(JoinPoint joinPoint) throws Throwable {
-    }
-
-    @AfterReturning(value = "requestLog()", returning = "ret")
-    public void doAfterReturning(Object ret) throws Throwable {
-    }
+//    @Before("requestLog()")
+//    public void doBefore(JoinPoint joinPoint) throws Throwable {
+//    }
+//
+//    @AfterReturning(value = "requestLog()", returning = "ret")
+//    public void doAfterReturning(Object ret) throws Throwable {
+//    }
 
     @Around("requestLog()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        long startTime = System.currentTimeMillis();
+        Date startTime = new Date();
         // 获取当前请求对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        assert attributes != null;
         HttpServletRequest request = attributes.getRequest();
-        // 记录请求信息(通过Logstash传入Elasticsearch)
         RequestLog webLog = new RequestLog();
         Object result = joinPoint.proceed();
         Signature signature = joinPoint.getSignature();
@@ -66,27 +63,19 @@ public class RequestLogAspect {
         if (method.isAnnotationPresent(ApiOperation.class)) {
             ApiOperation log = method.getAnnotation(ApiOperation.class);
             webLog.setDescription(log.value());
+        } else {
+            webLog.setDescription(request.getMethod());
         }
         long endTime = System.currentTimeMillis();
-        // String urlStr = request.getRequestURL().toString();
-        // webLog.setBasePath(StrUtil.removeSuffix(urlStr,
-        // URLUtil.url(urlStr).getPath()));
-        webLog.setIp(request.getRemoteUser());
-        webLog.setMethod(request.getMethod());
+        webLog.setUserIp(request.getRemoteUser());
+        webLog.setRequestMethod(request.getMethod());
         webLog.setParameter(getParameter(method, joinPoint.getArgs()));
         webLog.setResult(result);
-        webLog.setUseTime((int) (endTime - startTime));
+        webLog.setUseTime((int) (endTime - startTime.getTime()));
         webLog.setStartTime(startTime);
         webLog.setUri(request.getRequestURI());
         webLog.setUrl(request.getRequestURL().toString());
-        LOGGER.info("{}", webLog);
-        // Map<String, Object> logMap = new HashMap<>();
-        // logMap.put("url", webLog.getUrl());
-        // logMap.put("method", webLog.getMethod());
-        // logMap.put("parameter", webLog.getParameter());
-        // logMap.put("spendTime", webLog.getSpendTime());
-        // logMap.put("description", webLog.getDescription());
-        // LOGGER.info(Markers.appendEntries(logMap), webLog.toString());
+        log.info("{}", webLog);
         return result;
     }
 

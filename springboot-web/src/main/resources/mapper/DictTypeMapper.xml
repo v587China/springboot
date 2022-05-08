@@ -3,17 +3,84 @@
 <mapper namespace="com.ultra.dao.DictTypeMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ultra.entity.DictType">
+    <resultMap id="BaseResultMap" type="DictType">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="note" property="note"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        `id` ,`name` , `note`,`create_time`, `update_time`
+    <sql id="select">
+        select id,
+               name,
+               note,
+               gmt_create,
+               gmt_modified
+        from spring_dict_type
     </sql>
+
+    <!--增加相关sql-->
+    <insert id="add" parameterType="DictType" useGeneratedKeys="true" keyProperty="id">
+        insert into spring_dict_type
+        (name,
+        <if test="note != null">
+            note,
+        </if>
+        gmt_create,
+        gmt_modified)
+        values ( #{name},
+        <if test="note != null">
+            #{note},
+        </if>
+        #{gmtCreate},
+        #{gmtModified})
+    </insert>
+
+    <!--修改相关sql-->
+    <update id="updateById" parameterType="DictType">
+        update spring_dict_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="note != null">
+                note = #{note},
+            </if>
+            gmt_modified = #{gmtModified}
+        </trim>
+        where id = #{id}
+    </update>
+
+    <!--删除相关sql-->
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from sw_nc
+        where id = #{id}
+    </delete>
+    <delete id="deleteByIds" parameterType="Long">
+        delete from
+        sw_nc
+        where id in
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--查询相关sql-->
+    <select id="getById" parameterType="Long" resultMap="BaseResultMap">
+        <include refid="select"/>
+        where id = #{id}
+    </select>
+
+    <select id="list" resultMap="BaseResultMap">
+        <include refid="select"/>
+        <where>
+            <if test="name != null  and name != ''">
+                and name like concat('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
 
 </mapper>

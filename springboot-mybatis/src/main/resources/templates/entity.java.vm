@@ -15,7 +15,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import com.ultra.constant.LengthValidatedConstant;
+import com.ultra.constant.FormValidatedConstant;
 import com.ultra.constant.RegexpConstant;
 import com.ultra.validated.UpdateGroup;
 import org.hibernate.validator.constraints.Length;
@@ -89,7 +89,7 @@ public class ${entity} implements Serializable {
 #else
     #if($!field.columnType.type == "String")
     @NotBlank(message = "{attr.required}")
-    @Length(min = LengthValidatedConstant.STR_MIN_LENGTH, max = LengthValidatedConstant.STR_MAX_LENGTH, message = "{attr.range.length}")
+    @Length(min = FormValidatedConstant.COMMON_STR_MIN_LENGTH, max = FormValidatedConstant.COMMON_STR_MAX_LENGTH, message = "{attr.range.length}")
     @Pattern(regexp = RegexpConstant.NAME_REGEXP, message = "{attr.illegal}")
     #else
     @NotNull(message = "{attr.required}")

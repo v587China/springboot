@@ -3,8 +3,8 @@ package com.ultra.service;
 
 import com.ultra.entity.DictType;
 
-import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 public interface DictTypeService {
     /**
@@ -13,44 +13,54 @@ public interface DictTypeService {
      * @param dictType 实体对象
      * @return 条数
      */
-    int add(DictType dictType);
+    boolean add(DictType dictType);
 
     /**
-     * 修改
+     * 根据主键修改
      *
      * @param dictType 实体对象
      * @return 条数
      */
-    int updateById(DictType dictType);
+    boolean updateById(DictType dictType);
 
     /**
-     * 删除
+     * 根据主键删除
      *
      * @param id 主键
      * @return 条数
      */
-    int deleteById(Serializable id);
+    boolean deleteById(Long id);
 
     /**
-     * 删除
+     * 根据主键删除
      *
      * @param ids 主键
      * @return 条数
      */
-    int deleteByIds(Collection<Serializable> ids);
+    boolean deleteByIds(List<Long> ids);
 
     /**
-     * 查询
+     * 根据主键查询
      *
      * @param id 主键
      * @return 实体
      */
-    DictType getById(Serializable id);
+    DictType getById(Long id);
 
     /**
-     * 查询
+     * 查询名称是否可用
      *
+     * @param id   主键
+     * @param name 名称
+     * @return true/false
+     */
+    boolean getNameIsUsable(Long id, String name);
+
+    /**
+     * 根据条件搜索
+     *
+     * @param dictType 搜索条件
      * @return 实体集合
      */
-    Collection<DictType> getAll();
+    Collection<DictType> list(DictType dictType);
 }

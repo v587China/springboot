@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Date;
+
 /**
  * Controller层的日志封装类
  *
@@ -15,50 +17,37 @@ import lombok.ToString;
 public class RequestLog {
 
     /**
-     * 操作描述
-     */
-    private String description;
-
-    /**
      * 操作用户
      */
     private String username;
-
+    /**
+     * 操作用户IP
+     */
+    private String userIp;
+    /**
+     * 操作描述
+     */
+    private String description;
     /**
      * 操作时间
      */
-    private Long startTime;
-
+    private Date startTime;
     /**
      * 消耗时间
      */
     private Integer useTime;
-
-    /**
-     * 根路径
-     */
-    private String basePath;
-
-    /**
-     * URI
-     */
-    private String uri;
-
     /**
      * URL
      */
     private String url;
-
+    /**
+     * URI
+     */
+    private String uri;
     /**
      * 请求类型
      */
-    private String method;
-
-    /**
-     * IP地址
-     */
-    private String ip;
-
+    private String requestMethod;
     /**
      * 请求参数
      */

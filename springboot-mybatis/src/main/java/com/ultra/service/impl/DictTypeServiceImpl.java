@@ -47,7 +47,7 @@ public class DictTypeServiceImpl implements DictTypeService {
     }
 
     @Override
-    public Collection<DictType> list(DictType dictType) {
+    public List<DictType> list(DictType dictType) {
         return dictTypeMapper.list(dictType);
     }
 }

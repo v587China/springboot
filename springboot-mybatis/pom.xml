@@ -9,8 +9,8 @@
         <artifactId>springboot</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>springboot-mybatis-plus</artifactId>
-    <name>springboot-mybatis-plus Maven Webapp</name>
+    <artifactId>springboot-mybatis</artifactId>
+    <name>springboot-mybatis</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -52,6 +52,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>springboot-mybatis-plus</finalName>
+        <finalName>springboot-mybatis</finalName>
     </build>
 </project>

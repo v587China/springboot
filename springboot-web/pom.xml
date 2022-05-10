@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>com.ultra</groupId>
-            <artifactId>springboot-mybatis-plus</artifactId>
+            <artifactId>springboot-mybatis</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>

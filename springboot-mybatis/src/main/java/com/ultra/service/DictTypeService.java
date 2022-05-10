@@ -62,5 +62,5 @@ public interface DictTypeService {
      * @param dictType 搜索条件
      * @return 实体集合
      */
-    Collection<DictType> list(DictType dictType);
+    List<DictType> list(DictType dictType);
 }
